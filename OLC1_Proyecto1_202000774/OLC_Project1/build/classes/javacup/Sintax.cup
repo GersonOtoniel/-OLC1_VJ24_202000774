@@ -1,0 +1,120 @@
+package javacup;
+import java.util.ArrayList;
+import java_cup.runtime.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.*;
+import Clases.*;
+
+parser code {:
+    public String resultado = "";
+    public boolean estadograf = false;
+    public boolean asignacion = false;
+    public boolean estadobar = false;
+    public int titulobar = 0;
+    
+    public  String getResultado(){
+        return resultado;
+    }
+    public void syntax_error(Symbol s) {
+        System.out.println("Error Sintactico en la Linea " + (s.left) +
+                " Columna " + s.right + ". No se esperaba este componente: " + s.value + ".");
+    }
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception {
+        System.out.println("Error síntactico irrecuperable en la Linea " +
+                s.left + " Columna " + s.right + ". Componente " + s.value +
+                " no reconocido.");
+    }
+:}
+
+terminal  COMA, PRINTLN, CONSOLE, END, CHAR, DOUBLE, VAR, SUMA, MENOS, ARROBAID, INT, BOOL;
+terminal  MULTIPLICACION, IGUALACION, DIFERENTE, MENORIGUAL, MAYORIGUAL, DIVISION, POTENCIA, MODULO;
+terminal  IGUAL, REASIGN, CONST, OR, AND, XOR, NOT, DECIMAL, TKSTRING, UMENOS;
+terminal  ASIGN, PYC, DP, MENORQ, MAYORQ, PARENABRE, PARENCIERRA, CORCHABRE, CORCHCIERRA, UNDERSCORE;
+terminal  ID, TRUE, FALSE, TKCHAR;
+terminal  STRING, ENTERO;
+terminal  DEC, INC, IF, FOR, ELSE, MATCH, WHILE, RETURN, DO;
+
+
+non terminal LinkedList<Instruccion> INIT, instrucciones;
+non terminal Instruccion instruccion;
+non terminal TIPO;
+non terminal MUTACION, IDS, BLOQUEIF;
+non terminal Instruccion PRINT, ASIGNACION;
+non terminal Expresion EXPRESION;
+
+
+precedence left OR;
+precedence left AND;
+precedence left XOR;
+precedence right NOT;
+precedence left IGUALACION, DIFERENTE, MENORQ, MAYORQ, MENORIGUAL, MAYORIGUAL, MODULO;
+precedence left SUMA, MENOS;
+precedence left MULTIPLICACION, DIVISION;
+precedence left POTENCIA;
+precedence right UMENOS;
+
+
+start with INIT;
+
+INIT ::= instrucciones:a {: RESULT = a; :}
+        
+        
+;
+
+instrucciones::= instrucciones:a instruccion:b {: RESULT = a; RESULT.add(b); :}
+                |instruccion:a {: RESULT = new LinkedList<>(); RESULT.add(a); :}
+;
+
+instruccion ::= ASIGNACION:as PYC {: RESULT = as; :}
+                |BLOQUEIF
+                |PRINT:a PYC {: RESULT = a; :}
+
+;
+
+
+ASIGNACION ::= MUTACION:a  ID:b DP TIPO:c IGUAL EXPRESION:d {: RESULT = new Assign(bleft, bright, b.toString(), c.toString(), d); :}
+             | MUTACION ID DP TIPO 
+;
+
+PRINT ::= PRINTLN PARENABRE EXPRESION:a PARENCIERRA {: RESULT = new Print(aleft, aright, a); :}
+;
+
+MUTACION ::= VAR:varr {: RESULT = varr; :}
+            |CONST:constante {: RESULT = constante; :}
+;
+               
+TIPO ::= CHAR:a {: RESULT = a; :}
+        |DOUBLE:b {: RESULT = b; :}
+        |INT:c {: RESULT = c; :}
+        |BOOL:d {: RESULT = d; :}
+        |TKSTRING:e {: RESULT = e; :}
+;
+
+EXPRESION ::=EXPRESION:a MODULO:b EXPRESION:c {:RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
+            |EXPRESION:a SUMA:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
+            |EXPRESION:a MENOS:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
+            |EXPRESION:a MULTIPLICACION:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
+            |EXPRESION:a DIVISION:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
+            |EXPRESION:a POTENCIA:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
+            |EXPRESION IGUALACION EXPRESION:ex2 {: RESULT = ex2; :}
+            |EXPRESION MENORQ EXPRESION:ex2 {: RESULT = ex2; :}
+            |EXPRESION MAYORQ EXPRESION:ex2 {: RESULT = ex2; :}
+            |EXPRESION MAYORIGUAL EXPRESION:ex2 {: RESULT = ex2; :} 
+            |EXPRESION MENORIGUAL EXPRESION:ex2 {: RESULT = ex2; :}
+            |EXPRESION AND EXPRESION:ex2 {: RESULT = ex2; :}
+            |EXPRESION XOR EXPRESION:ex2 {: RESULT = ex2; :}
+            |EXPRESION OR EXPRESION:ex2 {: RESULT = ex2; :}
+            |NOT:a EXPRESION:b {:  :}
+            |MENOS:a EXPRESION:b {: RESULT = new Arithmetics(aleft, aright, b, a.toString(), null); :}%prec UMENOS
+            |PARENABRE EXPRESION:a PARENCIERRA {: RESULT = a; :}
+            |STRING:strin {: RESULT = new Primitive(strinleft, strinright, strin.toString().replace("\"", ""), Types.STRING); :}
+            |ID:id {: RESULT = new Id_Acces(idleft, idright, id.toString()); :}
+            |DECIMAL:decimal {: RESULT = new Primitive(decimalleft, decimalright, decimal, Types.DECIMAL); :}
+            |ENTERO:entero {: RESULT = new Primitive(enteroleft, enteroright, entero, Types.INT); :}
+            |TRUE:a {: RESULT = new Primitive(aleft, aright, a, Types.BOOL); :}
+            |FALSE:a {: RESULT = new Primitive(aleft, aright, a, Types.BOOL); :}
+            |TKCHAR:a {: RESULT = new Primitive(aleft, aright, a, Types.CHAR); :}
+;

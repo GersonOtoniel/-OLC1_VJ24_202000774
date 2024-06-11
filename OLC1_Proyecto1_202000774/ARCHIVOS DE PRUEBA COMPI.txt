@@ -1,0 +1,22 @@
+PROGRAM
+! Ejemplos
+var:double::numero1 <- 34 end;
+var:double::copia <- 777 end;
+arr:double::@darray <- [1, 2, 3, 4, 5] end; 
+! Arreglo de tipo double
+arr:char[]::@carray <- ["12", "2", "3"] end; 
+! Arreglo de tipo string
+arr:double::@carray2 <- [numero1, copia, 7] end; 
+! Puede usar variables"
+
+
+"! Operaciones
+var:double::numero <- 5 end;
+var:double:: suma <- SUM(5, 2) end;
+var:double:: resta <- RES(3, 2) end;
+var:double:: multi <- MUL(4, numero) end; 
+! Funciona con variables
+var:double::variable <- 4 end;
+var:double:: division <- DIV(1, variable)end;
+var:double:: modulo <- MOD(5, 4) end;
+END PROGRAM
