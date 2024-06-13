@@ -39,7 +39,7 @@ public class Test {
             
             
             
-            String text5 = "var num: int;\n const ad:double = 4.5;\n var palabra:String = \"hola como estas\";\nprintln(0 - 'a');";
+            String text5 = "println(\"Int a Char\");\nprintln((char)97 + \"\\n\");";
             Lex scanner = new Lex(new BufferedReader(new StringReader(text5)));
 
             Symbol token = null;

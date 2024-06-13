@@ -30,4 +30,8 @@ public class Default {
                 return null;
         }
     }
+    /*
+    public static void main(String[] args) {
+        System.out.println(1 + 9 - 8 * 2 / 4 % 2 + (Math.pow(5, 2)));
+    }*/
 }

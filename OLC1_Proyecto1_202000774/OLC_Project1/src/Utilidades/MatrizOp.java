@@ -50,6 +50,13 @@ public class MatrizOp {
     };
 
 
+    public static final Types[][] relation = {
+        {Types.BOOL, Types.BOOL, Types.NULL, Types.BOOL, Types.NULL},
+        {Types.BOOL, Types.BOOL, Types.NULL, Types.BOOL, Types.NULL},
+        {Types.NULL, Types.NULL, Types.BOOL, Types.NULL, Types.NULL},
+        {Types.BOOL, Types.BOOL, Types.NULL, Types.BOOL, Types.NULL},
+        {Types.NULL, Types.NULL, Types.NULL, Types.NULL, Types.BOOL}
+    };
 
 
 

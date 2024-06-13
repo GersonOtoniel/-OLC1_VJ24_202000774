@@ -133,7 +133,7 @@ public class Interfaz extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 0));
 
-        jTextPane1.setFont(new java.awt.Font("JetBrains Mono", 1, 14)); // NOI18N
+        jTextPane1.setFont(new java.awt.Font("JetBrains Mono", 1, 18));
         jScrollPane1.setViewportView(jTextPane1);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -435,13 +435,16 @@ public class Interfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
         String texto = listTextArea.get(jTabbedPane1.getSelectedIndex()).getText();
         
+        
         jTextPane1.setText("");
         Salidas.resetConsola();
+        
         
         try {
             Lex scanner = new Lex(new BufferedReader(new StringReader(texto.toString())));
             Parser parser = new Parser(scanner);
             var resultado = parser.parse();
+            
             Entorno global = new Entorno(null, "Global");
             
             
@@ -461,6 +464,34 @@ public class Interfaz extends javax.swing.JFrame {
                 System.out.println("Ocurrio un error");
                 e.printStackTrace();
             }
+        
+        /*try {
+            
+            
+            
+            String text5 = "println(\"Int a Char\");\nprintln((char)97 + \"\\n\");";
+            Lex scanner = new Lex(new BufferedReader(new StringReader(texto)));
+
+            Symbol token = null;
+            do{
+                token = scanner.next_token();
+                //if(token.value!=null){
+                if(sym.terminalNames[token.sym]=="STRING"){
+                    System.out.println("token: " + token.value.toString().replace("\"", "") + "---" + sym.terminalNames[token.sym]);
+                    continue;
+                }
+                
+                    System.out.println("token: " + token.value + "---" + sym.terminalNames[token.sym]);    
+                //}
+            }while(token.value!=null);              
+            Parser parser = new Parser(scanner);
+            parser.parse();
+            System.out.println("Análisis terminado");
+
+        } catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }*/
      
     }//GEN-LAST:event_jButton1ActionPerformed
 

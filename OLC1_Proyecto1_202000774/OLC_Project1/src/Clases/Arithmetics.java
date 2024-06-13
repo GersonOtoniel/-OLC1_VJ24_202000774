@@ -80,9 +80,58 @@ public class Arithmetics extends Expresion {
             return new ReturnTypes(resultDEC, this.type);
         }
         else if(this.type == Types.STRING){
+            
+            if(val1.value instanceof Boolean){
+                val1 = this.getBoleanString(val1, env);
+                val2 = this.getValue(val2, env);
+                String resultStr1 = "";
+                resultStr1 = val1.value.toString() + val2.value.toString();
+                return new ReturnTypes(resultStr1, this.type);
+            }else if(val2.value instanceof Boolean){
+                val1 = this.getValue(val1, env);
+                val2 = this.getBoleanString(val2, env);
+                String resultStr2 = "";
+                resultStr2 = val1.value.toString() + val2.value.toString();
+                return new ReturnTypes(resultStr2, this.type);
+            }else if(val1.value instanceof Boolean && val2.value instanceof Boolean){
+                val1 = this.getBoleanString(val1, env);
+                val2 = this.getBoleanString(val2, env);
+                String resultStr3 = "";
+                resultStr3 = val1.value.toString() + val2.value.toString();
+                return new ReturnTypes(resultStr3, this.type);
+            }
+            else if(val1.type == Types.CHAR){
+                val1 = this.getCharacter(val1, env);
+                val2 = this.getValue(val2, env);
+                
+                String resultStr3 = "";
+                resultStr3 = val1.value.toString() + val2.value.toString();
+                return new ReturnTypes(resultStr3, this.type);
+                
+            }
+            else if(val2.type == Types.CHAR){
+                val2 = this.getCharacter(val2, env);
+                val1 = this.getValue(val1, env);
+                
+                String resultStr3 = "";
+                resultStr3 = val1.value.toString() + val2.value.toString();
+                return new ReturnTypes(resultStr3, this.type);
+                
+            }
+            else if(val1.type == Types.CHAR){
+                val1 = this.getCharacter(val1, env);
+                val2 = this.getCharacter(val2, env);
+                
+                String resultStr3 = "";
+                resultStr3 = val1.value.toString() + val2.value.toString();
+                return new ReturnTypes(resultStr3, this.type);
+                
+            }
             val1 = this.getValue(val1, env);
             val2 = this.getValue(val2, env);
             String resultStr = "";
+            System.out.println(val1.value);
+            System.out.println(val2.value);
             resultStr = val1.value.toString() + val2.value.toString();
             return new ReturnTypes(resultStr, this.type);
         }
@@ -306,6 +355,7 @@ public class Arithmetics extends Expresion {
     public ReturnTypes getValue(ReturnTypes value, Entorno env){
         int num=0;
         if(value.type == Types.BOOL){
+            System.out.println(value.value);
             return new ReturnTypes( Boolean.valueOf((String) value.value) ? 1 : 0, Types.BOOL);
         }
         
@@ -318,7 +368,7 @@ public class Arithmetics extends Expresion {
                 //System.out.println("El valor numérico del carácter '" + ch + "' es: " + num);
                 
             }
-            return new ReturnTypes(num, Types.CHAR);//aqui da error de char
+            return new ReturnTypes(num, Types.CHAR);
         }
         
         else if(value.type == Types.INT){
@@ -328,5 +378,21 @@ public class Arithmetics extends Expresion {
         }
         
         return value;
+    }
+    
+    
+    public ReturnTypes getBoleanString(ReturnTypes value, Entorno env){
+        if(value.type == Types.BOOL){
+            System.out.println(value.value);
+            return new ReturnTypes( (Boolean) value.value ? "true" : "false", Types.STRING);
+        }
+        return null;
+    }
+    
+    public ReturnTypes getCharacter(ReturnTypes value, Entorno env){
+        if(value.type == Types.CHAR){
+            return value;
+        }
+        return null;
     }
 }

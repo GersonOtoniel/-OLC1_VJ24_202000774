@@ -58,7 +58,10 @@ var {return new Symbol (sym.VAR, yyline, yycolumn,yytext());}
 const {return new Symbol (sym.CONST, yyline, yycolumn, yytext());}
 true {return new Symbol (sym.TRUE, yyline, yycolumn, yytext());}
 false {return new Symbol (sym.FALSE, yyline, yycolumn, yytext());}
-
+if {return new Symbol (sym.TKIF, yyline, yycolumn, yytext());}
+else {return new Symbol (sym.ELSE, yyline, yycolumn, yytext());}
+while {return new Symbol (sym.WHILE, yyline, yycolumn, yytext());}
+break {return new Symbol (sym.TKBREAK, yyline, yycolumn, yytext());}
 
 
 
@@ -90,14 +93,20 @@ false {return new Symbol (sym.FALSE, yyline, yycolumn, yytext());}
 <YYINITIAL>"^" {return new Symbol (sym.XOR, yyline, yycolumn, yytext());}
 <YYINITIAL>"!" {return new Symbol (sym.NOT, yyline, yycolumn, yytext());}
 
+<YYINITIAL>"{" {return new Symbol (sym.CORCHABRE, yyline, yycolumn, yytext());}
+<YYINITIAL>"}" {return new Symbol (sym.CORCHCIERRA, yyline, yycolumn, yytext());}
 <YYINITIAL>"," {return new Symbol (sym.COMA, yyline, yycolumn,yytext());}
 <YYINITIAL>"(" {return new Symbol (sym.PARENABRE, yyline, yycolumn,yytext());}
 <YYINITIAL>")" {return new Symbol (sym.PARENCIERRA, yyline, yycolumn,yytext());}
 <YYINITIAL>"[" {return new Symbol (sym.CORCHABRE, yyline, yycolumn,yytext());}
 <YYINITIAL>"]" {return new Symbol (sym.CORCHCIERRA, yyline, yycolumn,yytext());}
 <YYINITIAL> \"({letter})*\" {return new Symbol (sym.STRING, yyline, yycolumn,yytext());}
-<YYINITIAL> \"([^\"\\\\]*(\\\\.[^\"\\\\]*)*)\" { return new Symbol (sym.STRING, yyline, yycolumn,yytext()); }
-<YYINITIAL> \“([^\"\\\\]*(\\\\.[^\"\\\\]*)*)\”|“[^“”]*” { return new Symbol (sym.STRING, yyline, yycolumn,yytext()); }
+
+<YYINITIAL> \"([^\"\\]|\\[btnfr\"\'\\])*\" { return new Symbol (sym.STRING, yyline, yycolumn,yytext()); }
+
+<YYINITIAL>\\"(([^\"\\\\n]|\\\\n|\\\\\\\\n|\\\\\"\"|\\\\\\\\n|\\\\.[^\"\\\\n])*)\\"|"[^]*"|\"\"\"|\"\\\\n\"|\"\\\\\\\\n\" { return new Symbol (sym.STRING, yyline, yycolumn,yytext()); }
+<YYINITIAL> \"([^\"\\\\]*(\\\\.[^\"\\\\]*)*)\"|"[^""]*" { return new Symbol (sym.STRING, yyline, yycolumn,yytext()); }
+
 <YYINITIAL> \'([^\'\\\\]*(\\\\.[^\'\\\\]*)*)\'|'[^'']*' {return new Symbol (sym.TKCHAR, yyline, yycolumn, yytext());}
 <YYINITIAL> \'([^\'\\\\]*(\\\\.[^\'\\\\]*)*)\' { return new Symbol (sym.TKCHAR, yyline, yycolumn,yytext()); }
 <YYINITIAL> "_" {return new Symbol (sym.UNDERSCORE, yyline, yycolumn,yytext());}

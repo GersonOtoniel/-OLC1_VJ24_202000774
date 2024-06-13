@@ -20,6 +20,7 @@ public class sym {
   public static final int PARENABRE = 37;
   public static final int INT = 12;
   public static final int PRINTLN = 3;
+  public static final int TKIF = 50;
   public static final int FOR = 51;
   public static final int MATCH = 53;
   public static final int NOT = 28;
@@ -31,13 +32,13 @@ public class sym {
   public static final int BOOL = 13;
   public static final int INC = 49;
   public static final int SUMA = 9;
-  public static final int IF = 50;
   public static final int UMENOS = 31;
   public static final int ID = 42;
   public static final int MAYORIGUAL = 18;
   public static final int EOF = 0;
   public static final int DECIMAL = 29;
   public static final int RETURN = 55;
+  public static final int TKBREAK = 57;
   public static final int TRUE = 43;
   public static final int error = 1;
   public static final int COMA = 2;
@@ -116,13 +117,14 @@ public class sym {
   "ENTERO",
   "DEC",
   "INC",
-  "IF",
+  "TKIF",
   "FOR",
   "ELSE",
   "MATCH",
   "WHILE",
   "RETURN",
-  "DO"
+  "DO",
+  "TKBREAK"
   };
 }
 

@@ -14,6 +14,8 @@ public enum TypesEx {
     ARITHMETIC,
     RELATIONAL,
     RETURN,
+    CAST,
+    INC_DEC,
     LOGICAL;
    
 }

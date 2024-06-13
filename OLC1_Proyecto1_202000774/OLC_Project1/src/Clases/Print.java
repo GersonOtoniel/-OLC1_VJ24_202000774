@@ -22,7 +22,6 @@ public class Print extends Instruccion {
     @Override
     public Object ejecutar(Entorno env) {
         ReturnTypes value = (this.toPrint != null) ? this.toPrint.ejecutar(env) : null;
-        
         env.setPrint((value != null) ? value.value + "\n": "");
         
         return null;

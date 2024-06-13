@@ -15,5 +15,11 @@ public enum TypesIns {
     WHILE,
     DO,
     ASSIGN,
+    DECLARATION,
+    REASSIGN,
+    INC_DEC,
+    BLOQUEINS,
+    BREAK,
+    CONTINUE,
     ELSE;
 }

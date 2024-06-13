@@ -10,7 +10,6 @@ import Clases.*;
 parser code {:
     public String resultado = "";
     public boolean estadograf = false;
-    public boolean asignacion = false;
     public boolean estadobar = false;
     public int titulobar = 0;
     
@@ -35,25 +34,25 @@ terminal  IGUAL, REASIGN, CONST, OR, AND, XOR, NOT, DECIMAL, TKSTRING, UMENOS;
 terminal  ASIGN, PYC, DP, MENORQ, MAYORQ, PARENABRE, PARENCIERRA, CORCHABRE, CORCHCIERRA, UNDERSCORE;
 terminal  ID, TRUE, FALSE, TKCHAR;
 terminal  STRING, ENTERO;
-terminal  DEC, INC, IF, FOR, ELSE, MATCH, WHILE, RETURN, DO;
+terminal  DEC, INC, TKIF, FOR, ELSE, MATCH, WHILE, RETURN, DO, TKBREAK;
 
 
 non terminal LinkedList<Instruccion> INIT, instrucciones;
 non terminal Instruccion instruccion;
 non terminal TIPO;
 non terminal MUTACION, IDS, BLOQUEIF;
-non terminal Instruccion PRINT, ASIGNACION;
-non terminal Expresion EXPRESION;
+non terminal Instruccion PRINT, DECLARACION, ASIGNACION, INC_DECINS, IF, BLOCKINS, INSWHILE, BREAK;
+non terminal Expresion EXPRESION, INCRE_DECRE;
 
 
 precedence left OR;
 precedence left AND;
 precedence left XOR;
 precedence right NOT;
-precedence left IGUALACION, DIFERENTE, MENORQ, MAYORQ, MENORIGUAL, MAYORIGUAL, MODULO;
+precedence left IGUALACION, DIFERENTE, MENORQ, MAYORQ, MENORIGUAL, MAYORIGUAL;
 precedence left SUMA, MENOS;
-precedence left MULTIPLICACION, DIVISION;
-precedence left POTENCIA;
+precedence left MULTIPLICACION, DIVISION, MODULO;
+precedence nonassoc POTENCIA;
 precedence right UMENOS;
 
 
@@ -68,18 +67,43 @@ instrucciones::= instrucciones:a instruccion:b {: RESULT = a; RESULT.add(b); :}
                 |instruccion:a {: RESULT = new LinkedList<>(); RESULT.add(a); :}
 ;
 
-instruccion ::= ASIGNACION:as PYC {: RESULT = as; :}
-                |BLOQUEIF
+instruccion ::= DECLARACION:as PYC {: RESULT = as; :}
+                |ASIGNACION:a PYC {: RESULT = a; :}
+                |INC_DECINS:a PYC {: RESULT = a; :}
+                |IF:a {: RESULT = a; :}
+                |BREAK:a PYC {: RESULT =a; :}
+                |INSWHILE:a {: RESULT = a; :} 
                 |PRINT:a PYC {: RESULT = a; :}
 
 ;
 
-
-ASIGNACION ::= MUTACION:a  ID:b DP TIPO:c IGUAL EXPRESION:d {: RESULT = new Assign(bleft, bright, b.toString(), c.toString(), d); :}
-             | MUTACION ID DP TIPO 
+INC_DECINS::= ID:a INC:b {: RESULT = new IncDecIns(aleft, aright, a.toString(), b.toString()); :}
+             |ID:a DEC:b {: RESULT = new IncDecIns(aleft, aright, a.toString(), b.toString()); :}
 ;
 
+DECLARACION ::= MUTACION:a  ID:b DP TIPO:c IGUAL EXPRESION:d {: RESULT = new Declaration(bleft, bright, b.toString(), c.toString(), d, a.toString()); :}
+             | MUTACION:a ID:b DP TIPO:c {: RESULT = new Declaration(bleft, bright, b.toString(), c.toString(), null, a.toString()); :}
+;
+
+ASIGNACION ::= ID:a IGUAL EXPRESION:b {: RESULT = new Assign(aleft, aright, a.toString(), b); :}
+;
+
+
 PRINT ::= PRINTLN PARENABRE EXPRESION:a PARENCIERRA {: RESULT = new Print(aleft, aright, a); :}
+;
+
+IF::= TKIF:c PARENABRE EXPRESION:a PARENCIERRA BLOCKINS:b {: RESULT = new If(cleft, cright, a, b, null); :}
+     |TKIF:c PARENABRE EXPRESION:a PARENCIERRA BLOCKINS:b ELSE BLOCKINS:d {: RESULT = new If(cleft, cright, a, b, d); :}
+     |TKIF PARENABRE EXPRESION PARENCIERRA BLOCKINS ELSE IF 
+;
+
+INSWHILE::=WHILE:a PARENABRE EXPRESION:b PARENCIERRA BLOCKINS:c {: RESULT = new While(aleft, aright, b, c); :}
+;
+
+BLOCKINS ::= CORCHABRE:b instrucciones:a CORCHCIERRA {: RESULT = new BloqueIns(bleft, bright,a); :}
+;
+
+BREAK::=TKBREAK:a {: RESULT = new Break(aleft, aright); :}
 ;
 
 MUTACION ::= VAR:varr {: RESULT = varr; :}
@@ -93,23 +117,26 @@ TIPO ::= CHAR:a {: RESULT = a; :}
         |TKSTRING:e {: RESULT = e; :}
 ;
 
-EXPRESION ::=EXPRESION:a MODULO:b EXPRESION:c {:RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
+EXPRESION ::=|INCRE_DECRE:a {: RESULT = a; :}
+            |EXPRESION:a MODULO:b EXPRESION:c {:RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
             |EXPRESION:a SUMA:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
             |EXPRESION:a MENOS:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
             |EXPRESION:a MULTIPLICACION:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
             |EXPRESION:a DIVISION:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
             |EXPRESION:a POTENCIA:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
-            |EXPRESION IGUALACION EXPRESION:ex2 {: RESULT = ex2; :}
-            |EXPRESION MENORQ EXPRESION:ex2 {: RESULT = ex2; :}
-            |EXPRESION MAYORQ EXPRESION:ex2 {: RESULT = ex2; :}
-            |EXPRESION MAYORIGUAL EXPRESION:ex2 {: RESULT = ex2; :} 
-            |EXPRESION MENORIGUAL EXPRESION:ex2 {: RESULT = ex2; :}
-            |EXPRESION AND EXPRESION:ex2 {: RESULT = ex2; :}
-            |EXPRESION XOR EXPRESION:ex2 {: RESULT = ex2; :}
-            |EXPRESION OR EXPRESION:ex2 {: RESULT = ex2; :}
-            |NOT:a EXPRESION:b {:  :}
+            |EXPRESION:a IGUALACION:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c);:}
+            |EXPRESION:a DIFERENTE:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c);:}
+            |EXPRESION:a MENORQ:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c);:}
+            |EXPRESION:a MAYORQ:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c); :}
+            |EXPRESION:a MAYORIGUAL:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c); :} 
+            |EXPRESION:a MENORIGUAL:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c); :}
+            |EXPRESION:a AND:b EXPRESION:c {: RESULT = new Logic(aleft, aright, a, b.toString(), c); :}
+            |EXPRESION:a XOR:b EXPRESION:c {: RESULT = new Logic(aleft, aright, a, b.toString(), c); :}
+            |EXPRESION:a OR:b EXPRESION:c {: RESULT = new Logic(aleft, aright, a, b.toString(), c); :}
+            |NOT:a EXPRESION:b {: RESULT = new Logic(aleft, aright, b, a.toString(), null); :}
             |MENOS:a EXPRESION:b {: RESULT = new Arithmetics(aleft, aright, b, a.toString(), null); :}%prec UMENOS
             |PARENABRE EXPRESION:a PARENCIERRA {: RESULT = a; :}
+            |PARENABRE TIPO:a PARENCIERRA EXPRESION:b {: RESULT = new Cast(aleft, aright, a.toString(), b); :}%prec UMENOS
             |STRING:strin {: RESULT = new Primitive(strinleft, strinright, strin.toString().replace("\"", ""), Types.STRING); :}
             |ID:id {: RESULT = new Id_Acces(idleft, idright, id.toString()); :}
             |DECIMAL:decimal {: RESULT = new Primitive(decimalleft, decimalright, decimal, Types.DECIMAL); :}
@@ -117,4 +144,9 @@ EXPRESION ::=EXPRESION:a MODULO:b EXPRESION:c {:RESULT = new Arithmetics(aleft, 
             |TRUE:a {: RESULT = new Primitive(aleft, aright, a, Types.BOOL); :}
             |FALSE:a {: RESULT = new Primitive(aleft, aright, a, Types.BOOL); :}
             |TKCHAR:a {: RESULT = new Primitive(aleft, aright, a, Types.CHAR); :}
+;
+
+
+INCRE_DECRE::= ID:a INC:b {: RESULT = new IncDec(aleft, aright, a.toString(), b.toString()); :}
+              |ID:a DEC:b {: RESULT = new IncDec(aleft, aright, a.toString(), b.toString()); :}  
 ;

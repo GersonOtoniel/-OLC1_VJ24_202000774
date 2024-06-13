@@ -21,7 +21,9 @@ public class Id_Acces extends Expresion {
 
     @Override
     public ReturnTypes ejecutar(Entorno env) {
+       
         final Simbolo value = env.getValue(this.id);
+        
         
         if(value == null){
             System.out.println("El id no existe, error semantico");

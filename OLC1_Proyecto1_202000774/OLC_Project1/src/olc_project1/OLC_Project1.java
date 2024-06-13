@@ -39,7 +39,7 @@ public class OLC_Project1 {
         } catch (Exception ex) {
             System.err.println("Error al inicializar el Look and Feel");}
         
-        /*try {
+        try {
 
             String ruta1 = "D:/Desktop/SAN CARLOS/COMPILADORES1/LAB COMPI1/PROYECTO1/OLC1_Proyecto1_202000774/OLC_Project1/src/javacup/";
             String ruta2 = "src/javacup/";
@@ -54,7 +54,7 @@ public class OLC_Project1 {
         
         try {
             
-            String text = "var num:String = \"hola como estas\"; println(num);";
+            String text = "var num:int = 5;";
             Lex scanner = new Lex(new BufferedReader(new StringReader(text)));
             Parser parser = new Parser(scanner);
             var resultado = parser.parse();
@@ -78,7 +78,7 @@ public class OLC_Project1 {
           System.out.println(e);
           System.out.println("Ocurrio un error");
           e.printStackTrace();
-        }*/
+        }
         
         
         

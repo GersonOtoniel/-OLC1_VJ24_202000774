@@ -13,7 +13,7 @@ import java.util.Map;
  * @author Gerson
  */
 public class Entorno {
-    public Map<String, Object> ids = new HashMap<>();
+    public Map<String, Simbolo> ids = new HashMap<>();
     public Entorno prev;
     public String nombre;
     
@@ -42,14 +42,41 @@ public class Entorno {
         Salidas.printConsola.add(value);
     }
     
-    public void saveID(int linea, int columna, String id, Types type, Object value){
+    public void saveID(int linea, int columna, String id, Types type, Object value, String mutabilidad){
         Entorno env = this;
         //System.out.println(env.ids.containsKey(id));
         if(!env.ids.containsKey(id)){
-            ids.put(id.toLowerCase(), new Simbolo(id, value, type));//aqui se agreaga a la tabla de simbolos
+            ids.put(id.toLowerCase(), new Simbolo(id, value, type, mutabilidad));//aqui se agreaga a la tabla de simbolos
         }else{
             System.out.println("Esta variable ya existe");//AQUI VA UN ERROR SEMANTICO
         }
+    }
+    
+    public Boolean check(String id, ReturnTypes value){
+        
+        Entorno env = this;
+        while(env != null){
+        if(env.ids.get(id.toLowerCase())!=null){
+            Simbolo symbol = env.ids.get(id.toLowerCase());
+            if(symbol.type != value.type){
+                
+                String errorTipo = String.format("--> Error Semántico: No se le puede asignar %s a %s \n", value.type, symbol.type);
+                Salidas.printConsola.add(errorTipo);
+                return false;
+            }
+            else if("const".equals(symbol.mutabilidad)){
+                    String errorContante = "--> Error Semantico: Variable de tipo constante no puede ser reasignada\n";
+                    Salidas.printConsola.add(errorContante);
+                    
+                    return false;
+            }
+            symbol.value = value.value;
+            env.ids.put(id.toLowerCase(), symbol);
+            return true;
+        }
+        env = env.prev;
+        }
+        return false;
     }
     
     public Simbolo getValue(String id){

@@ -16,11 +16,16 @@ public class Simbolo {
     public Object value;
     public Types type;
     public Entorno env;
-    public Simbolo(String id, Object value, Types type){
+    public String mutabilidad;
+    public Simbolo(String id, Object value, Types type, String mutabilidad){
         this.id = id;
         this.value = value;
         this.type = type;
+        this.mutabilidad = mutabilidad;
         //this.env = env;
     }
     
+    /*public static void main(String[] args) {
+        System.out.println((char)10);
+    }*/
 }
