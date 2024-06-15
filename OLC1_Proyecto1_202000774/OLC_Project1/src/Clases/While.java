@@ -26,6 +26,7 @@ public class While extends Instruccion{
     @Override
     public Object ejecutar(Entorno env) {
         //String entorno = String.format("s% while", env.nombre);
+        //System.out.println(env.nombre);
         Entorno envWhile = new Entorno(env, "EntornoWhile");
         
         Class<?>[] tiposDeParametros = new Class<?>[] {Entorno.class}; // los tipos de los parámetros aquí
@@ -36,7 +37,7 @@ public class While extends Instruccion{
             Method condicion1 = clase.getMethod("ejecutar", tiposDeParametros);
             ReturnTypes condicion = (ReturnTypes)condicion1.invoke(this.condition, valoresDeParametros);
             
-            while(condicion != null){
+            while((Boolean)condicion.value){
                 ReturnTypes bloque = (ReturnTypes) this.block.ejecutar(envWhile);
                 if(bloque!= null){
                     if(bloque.value == TypesIns.BREAK){

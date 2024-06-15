@@ -20,9 +20,9 @@ public class sym {
   public static final int PARENABRE = 37;
   public static final int INT = 12;
   public static final int PRINTLN = 3;
-  public static final int TKIF = 50;
-  public static final int FOR = 51;
-  public static final int MATCH = 53;
+  public static final int TKIF = 52;
+  public static final int FOR = 53;
+  public static final int MATCH = 55;
   public static final int NOT = 28;
   public static final int MENORIGUAL = 17;
   public static final int AND = 26;
@@ -30,38 +30,41 @@ public class sym {
   public static final int CORCHABRE = 39;
   public static final int OR = 25;
   public static final int BOOL = 13;
-  public static final int INC = 49;
+  public static final int INC = 51;
   public static final int SUMA = 9;
   public static final int UMENOS = 31;
   public static final int ID = 42;
   public static final int MAYORIGUAL = 18;
   public static final int EOF = 0;
   public static final int DECIMAL = 29;
-  public static final int RETURN = 55;
-  public static final int TKBREAK = 57;
+  public static final int RETURN = 57;
+  public static final int TKBREAK = 59;
   public static final int TRUE = 43;
   public static final int error = 1;
   public static final int COMA = 2;
   public static final int MODULO = 21;
   public static final int MENOS = 10;
+  public static final int TKCONTINUE = 60;
   public static final int TKSTRING = 30;
   public static final int REASIGN = 23;
   public static final int POTENCIA = 20;
-  public static final int ELSE = 52;
+  public static final int ARROW = 48;
+  public static final int ELSE = 54;
   public static final int MAYORQ = 36;
-  public static final int WHILE = 54;
+  public static final int WHILE = 56;
+  public static final int DEFAULT = 49;
   public static final int ASIGN = 32;
   public static final int END = 5;
   public static final int UNDERSCORE = 41;
   public static final int STRING = 46;
-  public static final int DEC = 48;
+  public static final int DEC = 50;
   public static final int FALSE = 44;
   public static final int TKCHAR = 45;
   public static final int DIVISION = 19;
   public static final int PARENCIERRA = 38;
   public static final int VAR = 8;
   public static final int DP = 34;
-  public static final int DO = 56;
+  public static final int DO = 58;
   public static final int CONSOLE = 4;
   public static final int PYC = 33;
   public static final int MULTIPLICACION = 14;
@@ -115,6 +118,8 @@ public class sym {
   "TKCHAR",
   "STRING",
   "ENTERO",
+  "ARROW",
+  "DEFAULT",
   "DEC",
   "INC",
   "TKIF",
@@ -124,7 +129,8 @@ public class sym {
   "WHILE",
   "RETURN",
   "DO",
-  "TKBREAK"
+  "TKBREAK",
+  "TKCONTINUE"
   };
 }
 

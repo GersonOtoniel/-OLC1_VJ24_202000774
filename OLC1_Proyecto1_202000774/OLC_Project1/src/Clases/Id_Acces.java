@@ -4,6 +4,7 @@
  */
 package Clases;
 
+import Utilidades.Salidas;
 import Utilidades.Simbolo;
 import Utilidades.TypesEx;
 
@@ -27,6 +28,8 @@ public class Id_Acces extends Expresion {
         
         if(value == null){
             System.out.println("El id no existe, error semantico");
+            String errorTipo = String.format("--> Error Semántico: el valor de esta variable es s%, puede deberse a que esta declarada en un entorno de bloque o que la variable no haya sido declarada", value.toString());
+            Salidas.printConsola.add(errorTipo);
             //error semantico
         }
         

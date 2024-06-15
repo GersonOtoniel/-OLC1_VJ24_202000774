@@ -62,6 +62,12 @@ if {return new Symbol (sym.TKIF, yyline, yycolumn, yytext());}
 else {return new Symbol (sym.ELSE, yyline, yycolumn, yytext());}
 while {return new Symbol (sym.WHILE, yyline, yycolumn, yytext());}
 break {return new Symbol (sym.TKBREAK, yyline, yycolumn, yytext());}
+continue {return new Symbol (sym.TKCONTINUE, yyline, yycolumn, yytext());}
+for {return new Symbol (sym.FOR, yyline, yycolumn, yytext());}
+do {return new Symbol (sym.DO, yyline, yycolumn, yytext());}
+match {return new Symbol (sym.MATCH, yyline, yycolumn, yytext());}
+
+
 
 
 
@@ -78,6 +84,8 @@ break {return new Symbol (sym.TKBREAK, yyline, yycolumn, yytext());}
 <YYINITIAL>"**" {return new Symbol (sym.POTENCIA, yyline, yycolumn, yytext());}
 <YYINITIAL>"*" {return new Symbol (sym.MULTIPLICACION, yyline, yycolumn, yytext());}
 <YYINITIAL>"%" {return new Symbol (sym.MODULO, yyline, yycolumn, yytext());}
+<YYINITIAL>"=>" {return new Symbol (sym.ARROW, yyline, yycolumn, yytext());}
+<YYINITIAL>"_" {return new Symbol (sym.DEFAULT, yyline, yycolumn, yytext());}
 
 
 <YYINITIAL>"++" {return new Symbol (sym.INC, yyline, yycolumn, yytext());}

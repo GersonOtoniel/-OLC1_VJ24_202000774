@@ -31,7 +31,6 @@ public class Declaration extends Instruccion{
             ReturnTypes val = this.value.ejecutar(env);
      
             if(val.type != this.type){
-                //System.out.println("Error semantico no son del mismo tipo");//Error
                 String errorTipo = String.format("--> Error Semántico: %s no es del mismo tipo que %s \n", val.type, this.type);
                 Salidas.printConsola.add(errorTipo);
                 return null;

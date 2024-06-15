@@ -39,7 +39,15 @@ public class Test {
             
             
             
-            String text5 = "println(\"Int a Char\");\nprintln((char)97 + \"\\n\");";
+            String text5 = "var j: int = 0;\n" +
+"var k: int = 10;\n" +
+"\n" +
+"while (j <= k) {\n" +
+"    println(j);\n" +
+"    println(k);	\n" +
+"    j++;\n" +
+"   \n" +
+"}";
             Lex scanner = new Lex(new BufferedReader(new StringReader(text5)));
 
             Symbol token = null;
@@ -82,5 +90,7 @@ public class Test {
         }
 
         return r;
+       
+        
     }
 }

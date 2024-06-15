@@ -10,16 +10,15 @@ import Utilidades.TypesIns;
  *
  * @author Gerson
  */
-public class Break extends Instruccion{
+public class Continue extends Instruccion{
 
-    public Break(int linea, int columna) {
-        super(linea, columna, TypesIns.BREAK);
+    public Continue(int linea, int columna) {
+        super(linea, columna, TypesIns.CONTINUE);
     }
 
     @Override
     public Object ejecutar(Entorno env) {
-        
-        return new ReturnTypes(this.typeInst,Types.NULL);
+        return new ReturnTypes(this.typeInst, Types.NULL);
     }
     
 }

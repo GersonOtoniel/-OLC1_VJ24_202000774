@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.*;
 import Clases.*;
+import java.util.Arrays;
+import java.util.List;
 
 parser code {:
     public String resultado = "";
@@ -33,16 +35,22 @@ terminal  MULTIPLICACION, IGUALACION, DIFERENTE, MENORIGUAL, MAYORIGUAL, DIVISIO
 terminal  IGUAL, REASIGN, CONST, OR, AND, XOR, NOT, DECIMAL, TKSTRING, UMENOS;
 terminal  ASIGN, PYC, DP, MENORQ, MAYORQ, PARENABRE, PARENCIERRA, CORCHABRE, CORCHCIERRA, UNDERSCORE;
 terminal  ID, TRUE, FALSE, TKCHAR;
-terminal  STRING, ENTERO;
-terminal  DEC, INC, TKIF, FOR, ELSE, MATCH, WHILE, RETURN, DO, TKBREAK;
+terminal  STRING, ENTERO, ARROW, DEFAULT;
+terminal  DEC, INC, TKIF, FOR, ELSE, MATCH, WHILE, RETURN, DO, TKBREAK, TKCONTINUE;
 
 
 non terminal LinkedList<Instruccion> INIT, instrucciones;
 non terminal Instruccion instruccion;
+
 non terminal TIPO;
 non terminal MUTACION, IDS, BLOQUEIF;
-non terminal Instruccion PRINT, DECLARACION, ASIGNACION, INC_DECINS, IF, BLOCKINS, INSWHILE, BREAK;
+non terminal Instruccion PRINT, DECLARACION, ASIGNACION, INC_DECINS, IF, BLOCKINS;
+non terminal Instruccion INSWHILE, BREAK, INSFOR, IDFOR, CONTINUE, DOWHILEINS, MATCHINS;
+non terminal Instruccion DEFAULTINS, CASE, EXPRESIONFOR;
+non terminal ArrayList<Instruccion> CASES;
+non terminal ArrayList<Object> BLOCKCASES;
 non terminal Expresion EXPRESION, INCRE_DECRE;
+
 
 
 precedence left OR;
@@ -71,8 +79,12 @@ instruccion ::= DECLARACION:as PYC {: RESULT = as; :}
                 |ASIGNACION:a PYC {: RESULT = a; :}
                 |INC_DECINS:a PYC {: RESULT = a; :}
                 |IF:a {: RESULT = a; :}
+                |INSFOR:a {: RESULT = a; :}
                 |BREAK:a PYC {: RESULT =a; :}
-                |INSWHILE:a {: RESULT = a; :} 
+                |CONTINUE:a PYC {: RESULT = a; :}
+                |MATCHINS:a  {: RESULT = a; :}
+                |INSWHILE:a {: RESULT = a; :}
+                |DOWHILEINS:a PYC {: RESULT = a; :}
                 |PRINT:a PYC {: RESULT = a; :}
 
 ;
@@ -97,13 +109,58 @@ IF::= TKIF:c PARENABRE EXPRESION:a PARENCIERRA BLOCKINS:b {: RESULT = new If(cle
      |TKIF PARENABRE EXPRESION PARENCIERRA BLOCKINS ELSE IF 
 ;
 
+
+MATCHINS ::= MATCH:a EXPRESION:b CORCHABRE BLOCKCASES:c CORCHCIERRA {: RESULT = new Match(aleft, aright, b, (ArrayList<Instruccion>) c.get(0),(Instruccion)c.get(1));  :}
+;
+
+
+
+
+
+
+BLOCKCASES::= CASES:a DEFAULTINS:b {: ArrayList<Object> lista = new ArrayList<>();lista.add(a); lista.add(b); RESULT = lista; :}
+             |CASES:a {: ArrayList<Object> lista = new ArrayList<>(); lista.add(a); lista.add(null); RESULT = lista; :}
+             |DEFAULTINS:a {: ArrayList<Object> lista = new ArrayList<>(); lista.add(null); lista.add(a); RESULT= lista; :}
+;
+
+CASES::= CASES:b CASE:a {:   RESULT = b; RESULT.add((Instruccion)a); :}
+        |CASE:a {: RESULT = new ArrayList<>(); RESULT.add((Instruccion)a); :}
+;
+
+
+
+
+CASE::= EXPRESION:a ARROW CORCHABRE instrucciones:b CORCHCIERRA {: RESULT = new Case(aleft, aright, a, new BloqueIns(bleft, bright, b)); :}
+;
+
+DEFAULTINS ::= DEFAULT:b ARROW CORCHABRE instrucciones:a CORCHCIERRA {: RESULT = new BloqueIns(bleft, bright, a); :}
+;
+
+
+
 INSWHILE::=WHILE:a PARENABRE EXPRESION:b PARENCIERRA BLOCKINS:c {: RESULT = new While(aleft, aright, b, c); :}
+;
+
+DOWHILEINS::=DO:a BLOCKINS:b WHILE PARENABRE EXPRESION:c PARENCIERRA {: RESULT = new DoWhile(aleft, aright, c, b); :}
+;
+
+INSFOR::=FOR:a PARENABRE IDFOR:b PYC  EXPRESION:c PYC EXPRESIONFOR:d PARENCIERRA BLOCKINS:e {: RESULT = new For(aleft, aright, b, c, d, (BloqueIns)e); :}
+;
+
+EXPRESIONFOR ::= ASIGNACION:a {: RESULT = a; :}
+                |INC_DECINS:a {: RESULT = a; :}
+;
+
+IDFOR::= ID:a IGUAL EXPRESION:b {: RESULT = new Assign(aleft, aright, a.toString(), b); :}
 ;
 
 BLOCKINS ::= CORCHABRE:b instrucciones:a CORCHCIERRA {: RESULT = new BloqueIns(bleft, bright,a); :}
 ;
 
 BREAK::=TKBREAK:a {: RESULT = new Break(aleft, aright); :}
+;
+
+CONTINUE::=TKCONTINUE:a {: RESULT = new Continue(aleft, aright); :}
 ;
 
 MUTACION ::= VAR:varr {: RESULT = varr; :}
