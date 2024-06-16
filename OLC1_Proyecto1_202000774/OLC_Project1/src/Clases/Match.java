@@ -26,37 +26,41 @@ public class Match extends Instruccion{
 
     @Override
     public Object ejecutar(Entorno env) {
-        
+        Boolean defaultcase = false;
         Entorno envMatch = new Entorno(env, "EntornoMatch");
         if(this.cases!=null){
             Case case_;
+            
             ReturnTypes exp1 = this.exp.ejecutar(env);
-            //System.out.println(this.cases.size());
             for (int i = 0; i < this.cases.size(); i++) {
                 case_ = (Case) this.cases.get(i);
                 case_.setEvaluated(exp1);
-                //System.out.println(exp1);
-                ReturnTypes block = (ReturnTypes) case_.ejecutar(envMatch);
-                //System.out.println(block);
-                if (block != null){
-                    
-                    if (block.value == TypesEx.RETURN) {return null;}
-                    else if (block.value == TypesIns.BREAK) {return null;}
+                Object block = (Object) case_.ejecutar(envMatch);
+                if (block instanceof ReturnTypes){
+                    if (((ReturnTypes)block).value == TypesEx.RETURN) {return null;}
+                    else if (((ReturnTypes)block).value == TypesIns.BREAK) {return null;}
                     return block;
                 }
-                else if(block == null){
+                else if((Boolean)block == true){
+                    defaultcase=false;
+                    break;
+                }
+                else if((Boolean)block == false){
+                    defaultcase=true;
                     continue;
                 }
                 
             }  
             
         }
-        if(this.Default != null){
-            ReturnTypes block = (ReturnTypes) this.Default.ejecutar(envMatch);
-            if(block!=null){
-                if(block.value == TypesEx.RETURN){return null;}
-                else if(block.value==TypesIns.BREAK){return null;}
-                return block;
+        if(defaultcase!=false){
+            if(this.Default != null){
+                ReturnTypes block = (ReturnTypes) this.Default.ejecutar(envMatch);
+                if(block!=null){
+                    if(block.value == TypesEx.RETURN){return null;}
+                    else if(block.value==TypesIns.BREAK){return null;}
+                    return block;
+                }
             }
         }
         return null;

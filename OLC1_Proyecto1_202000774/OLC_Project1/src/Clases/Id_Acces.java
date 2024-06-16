@@ -28,8 +28,10 @@ public class Id_Acces extends Expresion {
         
         if(value == null){
             System.out.println("El id no existe, error semantico");
-            String errorTipo = String.format("--> Error Semántico: el valor de esta variable es s%, puede deberse a que esta declarada en un entorno de bloque o que la variable no haya sido declarada", value.toString());
+            String val = "null";
+            String errorTipo = String.format("--> Error Semántico: el valor de esta variable es %s, puede deberse a que esta declarada en un entorno de bloque o que la variable no haya sido declarada\n", val );
             Salidas.printConsola.add(errorTipo);
+            return new ReturnTypes("NULL", Types.NULL);
             //error semantico
         }
         

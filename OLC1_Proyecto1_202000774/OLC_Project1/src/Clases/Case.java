@@ -30,21 +30,25 @@ public class Case extends Instruccion{
         ReturnTypes caso1 = this.evaluated;
         ReturnTypes caso2 = this.exp.ejecutar(envCase);
         //env.nombre = String.format("s% case s%", env.nombre, caso2.value);
-        //System.out.println(caso1.value +"--" + caso2.value);
+        //System.out.println(caso2.value.equals(caso1.value));
         //System.out.println(caso1.value);
-        if(caso2.value == caso1.value){
-            var block1 = (ReturnTypes) this.block.ejecutar(envCase);
+        if(caso2.value == caso1.value || caso2.value.equals(caso1.value)){
+            ReturnTypes block1 = (ReturnTypes) this.block.ejecutar(envCase);
             //return block;
             
-            if(block1.value!=null){
-                System.out.println("no es null");
-                return block1;
+            if(block1!=null){
+                if(block1.value!=null){
+                //System.out.println("no es null");
+                    return block1;
+                }
+               
             }
-            return null;
-           
+            return true;
+          
         }
+        return false;
         
-        return null;
+        
     }
 
     public void setEvaluated(ReturnTypes evaluated) {

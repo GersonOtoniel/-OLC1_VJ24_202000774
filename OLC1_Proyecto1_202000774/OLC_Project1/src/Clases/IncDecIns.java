@@ -54,7 +54,8 @@ public class IncDecIns extends Instruccion{
         }
         else if(val.type == Types.DECIMAL){
             inc2 = (double) val.value;
-            val.value = inc2++;
+            inc2++;
+            val.value = inc2;
             Boolean respuesta = env.check(this.id, new ReturnTypes(val.value, val.type));
             if(!respuesta){
                 System.out.println("Errrorororororor");

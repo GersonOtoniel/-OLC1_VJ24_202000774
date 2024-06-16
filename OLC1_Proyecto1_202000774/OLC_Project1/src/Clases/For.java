@@ -41,6 +41,7 @@ public class For extends Instruccion{
      */
     @Override
     public Object ejecutar(Entorno env) {
+       
         String entorno = "EntornoFor";
         Entorno envFor = new Entorno(env, entorno);
         this.variable.ejecutar(envFor);
@@ -62,6 +63,7 @@ public class For extends Instruccion{
                 return bloque;
                 
             }
+            
             this.inc_dec.ejecutar(envFor);
             condicion = (ReturnTypes) this.condition.ejecutar(envFor);
         }

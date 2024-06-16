@@ -27,6 +27,9 @@ public class While extends Instruccion{
     public Object ejecutar(Entorno env) {
         //String entorno = String.format("s% while", env.nombre);
         //System.out.println(env.nombre);
+        if(this.block==null){
+            return new ReturnTypes("NULL", Types.NULL);
+        }
         Entorno envWhile = new Entorno(env, "EntornoWhile");
         
         Class<?>[] tiposDeParametros = new Class<?>[] {Entorno.class}; // los tipos de los parámetros aquí
@@ -47,6 +50,7 @@ public class While extends Instruccion{
                         condicion = (ReturnTypes)condicion1.invoke(this.condition, valoresDeParametros);
                         continue;
                     }
+                   
                     return bloque;
                 }
                 condicion = (ReturnTypes)condicion1.invoke(this.condition, valoresDeParametros);

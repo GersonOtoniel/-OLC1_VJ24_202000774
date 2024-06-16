@@ -57,6 +57,7 @@ public class IncDec extends Expresion{
             inc2 = (double) val.value;
             inc2++;
             val.value = inc2;
+           
             Boolean respuesta = env.check(this.id, new ReturnTypes(val.value, val.type));
             if(!respuesta){
                 System.out.println("Errrorororororor");

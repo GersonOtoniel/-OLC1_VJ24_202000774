@@ -12,6 +12,7 @@ import java.util.LinkedList;
  */
 public class Salidas {
     public static LinkedList<Object> printConsola = new LinkedList<Object>();
+    
     public String Consola;
     
     public static String getConsola(){

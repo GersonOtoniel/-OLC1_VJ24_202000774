@@ -86,6 +86,8 @@ instruccion ::= DECLARACION:as PYC {: RESULT = as; :}
                 |INSWHILE:a {: RESULT = a; :}
                 |DOWHILEINS:a PYC {: RESULT = a; :}
                 |PRINT:a PYC {: RESULT = a; :}
+                |error PYC
+                |error
 
 ;
 
@@ -106,7 +108,7 @@ PRINT ::= PRINTLN PARENABRE EXPRESION:a PARENCIERRA {: RESULT = new Print(aleft,
 
 IF::= TKIF:c PARENABRE EXPRESION:a PARENCIERRA BLOCKINS:b {: RESULT = new If(cleft, cright, a, b, null); :}
      |TKIF:c PARENABRE EXPRESION:a PARENCIERRA BLOCKINS:b ELSE BLOCKINS:d {: RESULT = new If(cleft, cright, a, b, d); :}
-     |TKIF PARENABRE EXPRESION PARENCIERRA BLOCKINS ELSE IF 
+     |TKIF:c PARENABRE EXPRESION:a PARENCIERRA BLOCKINS:b ELSE IF:d {: RESULT = new If(cleft, cright, a, b, d); :}
 ;
 
 

@@ -4,6 +4,7 @@
  */
 package Clases;
 
+import Utilidades.Salidas;
 import Utilidades.TypesIns;
 
 /**
@@ -28,6 +29,10 @@ public class Assign extends Instruccion {
         
         if(!respuesta){
             System.out.println("no hay");//AQUI VA ERROR
+            String errorTipo = "La variable no ha sido creada o pertenece a un entorno no disponible\n";
+            
+            Salidas.printConsola.add(errorTipo);
+            return null;
         }
         return null;
     }

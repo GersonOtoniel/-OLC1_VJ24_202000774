@@ -1,74 +1,101 @@
-<INIT> ::= PROG instrucciones ENDPROG
-          |
+<INIT> ::= <instrucciones>
 
 <instrucciones> ::= <instrucciones> <instruccion>
                   | <instruccion>
 
-<instruccion> ::= <ARRAYS>
-                | <ASIGNACION>
-                | <IMPRIMIR>
-                | <IMPRIMIRARR>
-                | <GRAFICAS>
+<instruccion> ::= <DECLARACION> ";"
+                | <ASIGNACION> ";"
+                | <INC_DECINS> ";"
+                | <IF>
+                | <INSFOR>
+                | <BREAK> ";"
+                | <CONTINUE> ";"
+                | <MATCHINS>
+                | <INSWHILE>
+                | <DOWHILEINS> ";" 
+                | <PRINT> ";"
+                | <error> 
 
-<ARRAYS> ::= ARR DP TIPO DP DP DP ARROBAID ASIGN LISTA END PYC
+<INC_DECINS> ::= "ID" "INC"
+               | "ID" "DEC"
 
-<ASIGNACION> ::= VAR DP TIPO DP DP ID ASIGN EXPRESION END PYC
+<DECLARACION> ::= <MUTACION> "ID" ":" <TIPO> "=" <EXPRESION>
+                | <MUTACION> "ID" ":" <TIPO>
 
-<IMPRIMIR> ::= CONSOLE DP DP PRINT IGUAL EXIMPRIMIR END PYC
+<ASIGNACION> ::= "ID" "=" <EXPRESION>
 
-<IMPRIMIRARR> ::= CONSOLE DP DP PRINT IGUAL EXIMPRIMIRARR END PYC
+<PRINT> ::= "PRINTLN" "(" <EXPRESION> ")"
 
-<GRAFICAS> ::= GBAR DP DP GRAPHBARR END PYC
-             | GPIE DP DP GRAPHPIE END PYC
-             | GLINE DP DP GRAPHHISTO END PYC
+<IF> ::= "TKIF" "(" <EXPRESION> ")" <BLOCKINS>
+       | "TKIF" "(" <EXPRESION> ")" <BLOCKINS> "ELSE" <BLOCKINS>
+       | "TKIF" "(" <EXPRESION> ")" <BLOCKINS> "ELSE" <IF>
 
-<GRAPHPIE> ::= GPIE PARENABRE LABEL DP DP CHAR IGUAL <LISTA> END PYC
-               VALUES DP DP DOUBLE IGUAL <LISTA> END PYC
-               TITLE DP DP CHAR IGUAL EXPRESION END PYC
-               EXEC GPIE END PYC PARENCIERRA
-               END PYC
+<MATCHINS> ::= "MATCH" <EXPRESION> "{" <BLOCKCASES> "}"
 
-<GRAPHBARR> ::= GBAR  PARENABRE TITLE DP DP CHAR IGUAL EXPRESION END PYC
-                EJEX DP DP CHAR IGUAL <LISTA> END PYC
-                EJEY DP DP DOUBLE IGUAL <LISTA> END PYC
-                TITLEX DP DP CHAR IGUAL EXPRESION END PYC
-                TITLEY DP DP CHAR IGUAL EXPRESION END PYC
-                EXEC GBAR END PYC PARENCIERRA END PYC
+<BLOCKCASES> ::= <CASES> <DEFAULTINS>
+               | <CASES>
+               | <DEFAULTINS>
 
-<LISTCOLUMN> ::= <LISTA>
-                | <LISTAEXPRESION>
+<CASES> ::= <CASES> <CASE>
+          | <CASE>
 
-<LISTA> ::= CORCHABRE <LISTAEXPRESION> CORCHCIERRA
+<CASE> ::= <EXPRESION> "ARROW" "{" <instrucciones> "}"
 
-<LISTAEXPRESION> ::= <LISTAEXPRESION> COMA EXPRESION
-                    | EXPRESION
+<DEFAULTINS> ::= "DEFAULT" "ARROW" "{" <instrucciones> "}"
 
-<TIPO> ::= CHAR
-         | DOUBLE
+<INSWHILE> ::= "WHILE" "(" <EXPRESION> ")" <BLOCKINS>
 
+<DOWHILEINS> ::= "DO" <BLOCKINS> "WHILE" "(" <EXPRESION> ")"
 
-<EXIMPRIMIR> ::= <EXIMPRIMIR> COMA EXPRESION
-              | EXPRESION
-         
+<INSFOR> ::= "FOR" "(" <IDFOR> ";" <EXPRESION> ";" <EXPRESIONFOR> ")" <BLOCKINS>
 
-<EXPRESION> ::= STRING
-              | ARROBAID
-              | OPERA
-              | ESTADISTICOS
-     
+<EXPRESIONFOR> ::= <ASIGNACION>
+                 | <INC_DECINS>
 
-<ESTADISTICOS> ::= MEDIA PARENABRE LISTA PARENCIERRA
-                | MEDIANA PARENABRE LISTA PARENCIERRA
-                | MODA PARENABRE LISTA PARENCIERRA
-                | VARIANZA PARENABRE LISTA PARENCIERRA
-		| MIN PARENABRE <LISTA> PARENCIERRA
-		| MAX PARENABRE <LISTA> PARENCIERRA
+<IDFOR> ::= "ID" "=" <EXPRESION>
 
-<OPERA> ::= OPERA SUMA
-          | SUMA PARENABRE OPERA COMA OPERA PARENCIERRA
-          | RESTA PARENABRE OPERA COMA OPERA PARENCIERRA      
-          | MULTIPLICACION PARENABRE OPERA COMA OPERA PARENCIERRA
-	  | DIVISION PARENABRE <OPERA>:num1 COMA <OPERA>:num2 PARENCIERRA  
-          | MODULO PARENABRE <OPERA> COMA <OPERA> PARENCIERRA
-          | DECIMAL
-          | ID
+<BLOCKINS> ::= "{" <instrucciones> "}"
+
+<BREAK> ::= "TKBREAK"
+
+<CONTINUE> ::= "TKCONTINUE"
+
+<MUTACION> ::= "VAR"
+             | "CONST"
+
+<TIPO> ::= "CHAR"
+         | "DOUBLE"
+         | "INT"
+         | "BOOL"
+         | "TKSTRING"
+
+<EXPRESION> ::= <INCRE_DECRE>
+              | <EXPRESION> "%" <EXPRESION>
+              | <EXPRESION> "+" <EXPRESION>
+              | <EXPRESION> "-" <EXPRESION>
+              | <EXPRESION> "*" <EXPRESION>
+              | <EXPRESION> "/" <EXPRESION>
+              | <EXPRESION> "**" <EXPRESION>
+              | <EXPRESION> "==" <EXPRESION>
+              | <EXPRESION> "!=" <EXPRESION>
+              | <EXPRESION> "<" <EXPRESION>
+              | <EXPRESION> ">" <EXPRESION>
+              | <EXPRESION> ">=" <EXPRESION>
+              | <EXPRESION> "<=" <EXPRESION>
+              | <EXPRESION> "AND" <EXPRESION>
+              | <EXPRESION> "XOR" <EXPRESION>
+              | <EXPRESION> "OR" <EXPRESION>
+              | "NOT" <EXPRESION>
+              | "MENOS" <EXPRESION>
+              | "(" <EXPRESION> ")"
+              | "(" <TIPO> ")" <EXPRESION>
+              | "STRING"
+              | "ID"
+              | "DECIMAL"
+              | "ENTERO"
+              | "TRUE"
+              | "FALSE"
+              | "TKCHAR"
+
+<INCRE_DECRE> ::= "ID" "INC"
+                | "ID" "DEC"

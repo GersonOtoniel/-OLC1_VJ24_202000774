@@ -6,6 +6,9 @@ package Clases;
 
 import Utilidades.TypesEx;
 import static Utilidades.MatrizOp.*;
+import Utilidades.Salidas;
+import Utilidades.TablaErrores;
+import Utilidades.TypesError;
 
 
 /**
@@ -130,8 +133,8 @@ public class Arithmetics extends Expresion {
             val1 = this.getValue(val1, env);
             val2 = this.getValue(val2, env);
             String resultStr = "";
-            System.out.println(val1.value);
-            System.out.println(val2.value);
+            //System.out.println(val1.value);
+            //System.out.println(val2.value);
             resultStr = val1.value.toString() + val2.value.toString();
             return new ReturnTypes(resultStr, this.type);
         }
@@ -252,7 +255,10 @@ public class Arithmetics extends Expresion {
             val2 = this.getValue(val2, env);
             
             if(((Number) val2.value).doubleValue()==0.0){
-            System.out.println("Division por cero");//aqui va error
+            //System.out.println("Division por cero");//aqui va error
+            String errorVar = "--> Error Semantico: Division por cero\n";
+            
+            Salidas.printConsola.add(errorVar);
             }
             
             double resultInt = 0;
@@ -264,7 +270,9 @@ public class Arithmetics extends Expresion {
             val2 = this.getValue(val2, env);
             
             if(((Number) val2.value).doubleValue()==0.0){
-            System.out.println("Division por cero");//aqui va error
+            //System.out.println("Division por cero");//aqui va error
+            String errorVar = "--> Error Semantico: Division por cero\n";
+            Salidas.printConsola.add(errorVar);
             }
             
             double resultDec = 0.0;
@@ -355,23 +363,24 @@ public class Arithmetics extends Expresion {
     public ReturnTypes getValue(ReturnTypes value, Entorno env){
         int num=0;
         if(value.type == Types.BOOL){
-            System.out.println(value.value);
+            //System.out.println(value.value);
             return new ReturnTypes( Boolean.valueOf((String) value.value) ? 1 : 0, Types.BOOL);
         }
         
         else if(value.type == Types.CHAR){
-            //System.out.println(value.value.getClass().getName());
-            //System.out.println(value.value);
             if (value.value instanceof String ) {
                 String ch = (String) value.value;
                 num = (int) ch.replace("\'", "").charAt(0);
-                //System.out.println("El valor numérico del carácter '" + ch + "' es: " + num);
+
                 
             }
             return new ReturnTypes(num, Types.CHAR);
         }
         
         else if(value.type == Types.INT){
+            if(value.value instanceof Double){
+                return value;
+            }
             if((Integer) value.value < -2147483648 || (Integer) value.value > 2147483647){
                 return null;//aqui creo un error
             }
@@ -383,7 +392,7 @@ public class Arithmetics extends Expresion {
     
     public ReturnTypes getBoleanString(ReturnTypes value, Entorno env){
         if(value.type == Types.BOOL){
-            System.out.println(value.value);
+            //System.out.println(value.value);
             return new ReturnTypes( (Boolean) value.value ? "true" : "false", Types.STRING);
         }
         return null;

@@ -5,6 +5,7 @@
 package Clases;
 import Utilidades.Salidas;
 import Utilidades.Simbolo;
+import Utilidades.TableSymbol;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,8 +48,11 @@ public class Entorno {
         //System.out.println(env.ids.containsKey(id));
         if(!env.ids.containsKey(id)){
             ids.put(id.toLowerCase(), new Simbolo(id, value, type, mutabilidad));//aqui se agreaga a la tabla de simbolos
+            TableSymbol.push(linea, columna, id, "Variable", this.getType(type), env.nombre.toString(), value.toString(), mutabilidad);
+            
         }else{
-            System.out.println("Esta variable ya existe");//AQUI VA UN ERROR SEMANTICO
+            String errorVar = String.format("--> Error Semántico: El identificador %s ya existe en este entorno.\n", id);
+            Salidas.printConsola.add(errorVar);
         }
     }
     
@@ -89,5 +93,24 @@ public class Entorno {
             env = env.prev;
         }
         return null;
+    }
+    
+    public String getType(Types type){
+        if(type == Types.BOOL){
+            return "bool";
+        }
+        else if(type == Types.CHAR){
+            return "char";
+        }
+        else if(type == Types.DECIMAL){
+            return "double";
+        }
+        else if(type == Types.INT){
+            return "int";
+        }
+        else if(type == Types.STRING){
+            return "String";
+        }
+        return "NULL";
     }
 }

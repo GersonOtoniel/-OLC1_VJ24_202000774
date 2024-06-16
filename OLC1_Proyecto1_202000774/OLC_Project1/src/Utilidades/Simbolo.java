@@ -18,7 +18,7 @@ public class Simbolo {
     public Entorno env;
     public String mutabilidad;
     public Simbolo(String id, Object value, Types type, String mutabilidad){
-        this.id = id;
+        this.id = id.toLowerCase();
         this.value = value;
         this.type = type;
         this.mutabilidad = mutabilidad;
