@@ -39,15 +39,7 @@ public class Test {
             
             
             
-            String text5 = "var j: int = 0;\n" +
-"var k: int = 10;\n" +
-"\n" +
-"while (j <= k) {\n" +
-"    println(j);\n" +
-"    println(k);	\n" +
-"    j++;\n" +
-"   \n" +
-"}";
+            String text5 = "println(\"\\\\Operaciones logicas\\\\\");";
             Lex scanner = new Lex(new BufferedReader(new StringReader(text5)));
 
             Symbol token = null;
@@ -55,7 +47,7 @@ public class Test {
                 token = scanner.next_token();
                 //if(token.value!=null){
                 if(sym.terminalNames[token.sym]=="STRING"){
-                    System.out.println("token: " + token.value.toString().replace("\"", "") + "---" + sym.terminalNames[token.sym]);
+                    System.out.println("token: " + token.value + "---" + sym.terminalNames[token.sym]);
                     continue;
                 }
                 

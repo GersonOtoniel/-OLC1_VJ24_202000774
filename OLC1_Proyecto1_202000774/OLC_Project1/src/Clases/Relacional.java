@@ -261,6 +261,9 @@ public class Relacional extends Expresion {
     public ReturnTypes getValue(ReturnTypes value, Entorno env){
         int num=0;
         if(value.type == Types.BOOL){
+            if(value.value instanceof Boolean){
+                return new ReturnTypes( Boolean.valueOf((Boolean) value.value) ? 1 : 0, Types.BOOL);
+            }
             return new ReturnTypes( Boolean.valueOf((String) value.value) ? 1 : 0, Types.BOOL);
         }
         

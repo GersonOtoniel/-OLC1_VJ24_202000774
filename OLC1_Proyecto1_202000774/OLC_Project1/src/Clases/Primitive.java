@@ -28,7 +28,7 @@ public class Primitive extends Expresion {
                 return new ReturnTypes(Double.parseDouble((String) this.value), this.type);
                 
             default:
-                this.value = ((String) this.value).replace("\\n", "\n")
+                this.value = ((String)this.value).replace("\\n", "\n")
                         .replace("\\t", "\t")
                         .replace("\\r", "\r")
                         .replace("\\\"", "\"")

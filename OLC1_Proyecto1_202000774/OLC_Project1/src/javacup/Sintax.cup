@@ -196,7 +196,7 @@ EXPRESION ::=|INCRE_DECRE:a {: RESULT = a; :}
             |MENOS:a EXPRESION:b {: RESULT = new Arithmetics(aleft, aright, b, a.toString(), null); :}%prec UMENOS
             |PARENABRE EXPRESION:a PARENCIERRA {: RESULT = a; :}
             |PARENABRE TIPO:a PARENCIERRA EXPRESION:b {: RESULT = new Cast(aleft, aright, a.toString(), b); :}%prec UMENOS
-            |STRING:strin {: RESULT = new Primitive(strinleft, strinright, strin.toString().replace("\"", ""), Types.STRING); :}
+            |STRING:strin {: RESULT = new Primitive(strinleft, strinright, strin!=null?QuitarComillas.comillas(strin.toString()):QuitarComillas.comillas(null) , Types.STRING); :}
             |ID:id {: RESULT = new Id_Acces(idleft, idright, id.toString()); :}
             |DECIMAL:decimal {: RESULT = new Primitive(decimalleft, decimalright, decimal, Types.DECIMAL); :}
             |ENTERO:entero {: RESULT = new Primitive(enteroleft, enteroright, entero, Types.INT); :}

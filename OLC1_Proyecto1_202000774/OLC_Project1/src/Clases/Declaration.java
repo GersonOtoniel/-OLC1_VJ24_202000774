@@ -27,6 +27,7 @@ public class Declaration extends Instruccion{
 
     @Override
     public Object ejecutar(Entorno env) {
+        
         if(this.value != null){
             ReturnTypes val = this.value.ejecutar(env);
      

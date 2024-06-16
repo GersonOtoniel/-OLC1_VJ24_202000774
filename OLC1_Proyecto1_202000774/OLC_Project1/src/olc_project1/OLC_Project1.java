@@ -51,7 +51,7 @@ public class OLC_Project1 {
         } catch (Exception e) {
         }
 
-        /*
+        
         try {
             
             String text = "var num:int = 5;";
@@ -79,7 +79,7 @@ public class OLC_Project1 {
           System.out.println("Ocurrio un error");
           e.printStackTrace();
         }
-        */
+        
         
         
         

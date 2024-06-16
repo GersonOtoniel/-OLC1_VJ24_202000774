@@ -172,7 +172,8 @@ public class Arithmetics extends Expresion {
             val2 = this.getValue(val2, env);
             
             int resultInt = 0;
-            resultInt = (Integer) val1.value - (Integer) val2.value;
+            resultInt = ((Number) val1.value).intValue() - ((Number) val2.value).intValue();
+            resultInt = (int) resultInt;
             return new ReturnTypes(resultInt, this.type);
         }
         else if(this.type == Types.DECIMAL){
@@ -212,7 +213,8 @@ public class Arithmetics extends Expresion {
             val1 = this.getValue(val1, env);
             val2 = this.getValue(val2, env);
             int resultInt = 0;
-            resultInt = (Integer) val1.value * (Integer) val2.value;
+            resultInt = ((Number) val1.value).intValue() * ((Number) val2.value).intValue();
+            resultInt = (int) resultInt;
             
             return new ReturnTypes(resultInt, this.type);
         }
@@ -362,6 +364,9 @@ public class Arithmetics extends Expresion {
 
     public ReturnTypes getValue(ReturnTypes value, Entorno env){
         int num=0;
+        /*if(value.type == Types.STRING){
+            return new ReturnTypes(((String)value.value).substring(1, ((String)value.value).length()-1), Types.STRING);
+        }*/
         if(value.type == Types.BOOL){
             //System.out.println(value.value);
             return new ReturnTypes( Boolean.valueOf((String) value.value) ? 1 : 0, Types.BOOL);

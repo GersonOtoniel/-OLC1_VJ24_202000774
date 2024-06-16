@@ -24,7 +24,10 @@ public class Id_Acces extends Expresion {
     public ReturnTypes ejecutar(Entorno env) {
        
         final Simbolo value = env.getValue(this.id);
-        
+        if(value.value.toString() == ""){
+            this.type = value.type;
+            return new ReturnTypes(value.value = "", this.type);
+        }
         
         if(value == null){
             System.out.println("El id no existe, error semantico");

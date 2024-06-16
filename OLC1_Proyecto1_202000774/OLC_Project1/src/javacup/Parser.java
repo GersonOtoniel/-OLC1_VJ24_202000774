@@ -1660,7 +1660,7 @@ class CUP$Parser$actions {
 		int strinleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int strinright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object strin = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new Primitive(strinleft, strinright, strin.toString().replace("\"", ""), Types.STRING); 
+		 RESULT = new Primitive(strinleft, strinright, strin!=null?QuitarComillas.comillas(strin.toString()):QuitarComillas.comillas(null) , Types.STRING); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("EXPRESION",25, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
