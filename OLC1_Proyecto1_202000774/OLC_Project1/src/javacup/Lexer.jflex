@@ -45,9 +45,9 @@ LineTerminator = \r|\n|\r\n
 "//" .* {/*Ignore*/}
 
 println {return new Symbol (sym.PRINTLN, yyline, yycolumn, yytext());}
-console {return new Symbol (sym.CONSOLE, yyline, yycolumn, yytext());}
 
-end {return new Symbol (sym.END,yyline, yycolumn, yytext());}
+
+
 int {return new Symbol (sym.INT, yyline, yycolumn, yytext());}
 double {return new Symbol (sym.DOUBLE,yyline, yycolumn,yytext());}
 bool {return new Symbol (sym.BOOL, yyline, yycolumn, yytext());}
@@ -66,8 +66,10 @@ continue {return new Symbol (sym.TKCONTINUE, yyline, yycolumn, yytext());}
 for {return new Symbol (sym.FOR, yyline, yycolumn, yytext());}
 do {return new Symbol (sym.DO, yyline, yycolumn, yytext());}
 match {return new Symbol (sym.MATCH, yyline, yycolumn, yytext());}
-
-
+new {return new Symbol (sym.NEW, yyline, yycolumn, yytext());}
+List {return new Symbol (sym.LIST, yyline, yycolumn, yytext());}
+append {return new Symbol (sym.APPEND, yyline, yycolumn, yytext());}
+remove {return new Symbol (sym.REMOVE, yyline, yycolumn, yytext());}
 
 
 
@@ -86,6 +88,7 @@ match {return new Symbol (sym.MATCH, yyline, yycolumn, yytext());}
 <YYINITIAL>"%" {return new Symbol (sym.MODULO, yyline, yycolumn, yytext());}
 <YYINITIAL>"=>" {return new Symbol (sym.ARROW, yyline, yycolumn, yytext());}
 <YYINITIAL>"_" {return new Symbol (sym.DEFAULT, yyline, yycolumn, yytext());}
+<YYINITIAL>"." {return new Symbol (sym.PUNTO, yyline, yycolumn, yytext());}
 
 
 <YYINITIAL>"++" {return new Symbol (sym.INC, yyline, yycolumn, yytext());}
@@ -101,8 +104,8 @@ match {return new Symbol (sym.MATCH, yyline, yycolumn, yytext());}
 <YYINITIAL>"^" {return new Symbol (sym.XOR, yyline, yycolumn, yytext());}
 <YYINITIAL>"!" {return new Symbol (sym.NOT, yyline, yycolumn, yytext());}
 
-<YYINITIAL>"{" {return new Symbol (sym.CORCHABRE, yyline, yycolumn, yytext());}
-<YYINITIAL>"}" {return new Symbol (sym.CORCHCIERRA, yyline, yycolumn, yytext());}
+<YYINITIAL>"{" {return new Symbol (sym.LLAVEABRE, yyline, yycolumn, yytext());}
+<YYINITIAL>"}" {return new Symbol (sym.LLAVECIERRA, yyline, yycolumn, yytext());}
 <YYINITIAL>"," {return new Symbol (sym.COMA, yyline, yycolumn,yytext());}
 <YYINITIAL>"(" {return new Symbol (sym.PARENABRE, yyline, yycolumn,yytext());}
 <YYINITIAL>")" {return new Symbol (sym.PARENCIERRA, yyline, yycolumn,yytext());}

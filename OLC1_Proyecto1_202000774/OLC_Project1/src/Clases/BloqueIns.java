@@ -22,7 +22,7 @@ public class BloqueIns extends Instruccion{
     @Override
     public Object ejecutar(Entorno env) {
         //System.out.println(env.nombre);
-        String entorno = "Bloque If";
+        String entorno = env.nombre.toString();
         Entorno bloqueEntorno = new Entorno(env,entorno);
         for(var instruccion : this.instrucciones){
             try{

@@ -14,6 +14,8 @@ public enum Types {
     BOOL,
     CHAR,
     STRING,
+    ARRAY,
+    VECTOR,
     NULL;
     
 }

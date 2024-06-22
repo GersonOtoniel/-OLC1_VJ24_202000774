@@ -6,7 +6,9 @@ package Clases;
 import Utilidades.Salidas;
 import Utilidades.Simbolo;
 import Utilidades.TableSymbol;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 /**
@@ -56,6 +58,31 @@ public class Entorno {
         }
     }
     
+    public void saveArray(int linea, int columna, String id, Types type, Object value, String mutabilidad ){
+        Entorno env = this;
+        if(!env.ids.containsKey(id.toLowerCase())){
+            ids.put(id.toLowerCase(), new Simbolo(id, value, Types.VECTOR, mutabilidad));
+            //para tabla de simbolos
+        }
+        else{
+            System.out.println("Error semantico el id de este array ya existe en este entorno");
+            //Error
+        }
+    }
+    
+    
+    public void saveDinamicList(String id, LinkedList<?> value){
+        Entorno env = this;
+        if(!env.ids.containsKey(id.toLowerCase())){
+            ids.put(id.toLowerCase(), new Simbolo(id,value,Types.ARRAY, "ARRAY"));
+        }
+        else{
+            System.out.println("-->Error: Variable ya existe en el entorno actual");
+            //Error
+        }
+    }
+    
+    
     public Boolean check(String id, ReturnTypes value){
         
         Entorno env = this;
@@ -81,6 +108,98 @@ public class Entorno {
         env = env.prev;
         }
         return false;
+    }
+    
+    //pendiente de verificar
+    public Boolean reasignValueArray(String id, int indice, Primitive value, Types type, String mutabilidad){
+        Entorno env = this;
+        while(env!=null){
+            if(env.ids.containsKey(id.toLowerCase())){
+                Simbolo symbol  = env.ids.get(id.toLowerCase());
+                
+                ReturnTypes temp = ((ReturnTypes)((ArrayList<?>)symbol.value).get(indice));
+                
+                if(temp.type == Types.ARRAY){
+                    //((ReturnTypes)((ArrayList<?>)symbol.value).set(indice, value));
+                    temp.setValue(value.value);
+                    temp.setType(Types.ARRAY);
+                    //((ReturnTypes)((ArrayList<?>)symbol.value).get(indice)).type = Types.ARRAY;
+                    return true;
+                }
+                //((ReturnTypes)((ArrayList<?>)symbol.value).get(indice)).value = value;
+                //((ReturnTypes)((ArrayList<?>)symbol.value).get(indice)).type = Types.ARRAY;
+                if(temp.type!=value.type){
+                    System.out.println("Error: la variable no es del mismo tipo que el valor");
+                    return false;
+                }
+                temp.setValue(value.value);
+                temp.setType(value.type);
+                env.ids.put(id.toLowerCase(), symbol);
+                 return true;
+                
+            }
+            env = env.prev;
+        }
+        return false;
+    }
+    
+    
+    
+    public Simbolo getValueMatrix(String id, int index1, int index2){
+        Entorno env = this;
+        
+        while(env!=null){
+            if(env.ids.containsKey(id.toLowerCase())){
+                Simbolo symbol = env.ids.get(id.toLowerCase());
+                ReturnTypes temp = (ReturnTypes) ((ArrayList<?>)symbol.value).get(index1);
+                if(((ArrayList<?>)temp.value).get(index2)==null){
+                    return null;
+                }
+                //((ArrayList<?>)temp.value).get(index2)
+                return  (Simbolo) symbol;
+            }
+            
+            env = env.prev;
+        }
+        return null;
+    }
+    
+    public Boolean reasingValueMatrix(String id, int i, int j, Primitive value){
+        Entorno env = this;
+        while(env!=null){
+            if(env.ids.containsKey(id.toLowerCase())){
+                Simbolo symbol = env.ids.get(id.toLowerCase());
+                ReturnTypes temp = (ReturnTypes)(((ArrayList<?>)symbol.value).get(i));
+                if(((ReturnTypes)((ArrayList<?>)temp.value).get(j)).type != value.type){
+                    System.out.println("Error: Variable y valor no son del mismo tipo");
+                    return false;
+                }
+                ((ReturnTypes)((ArrayList<?>)temp.value).get(j)).setValue(((ReturnTypes)value.value).value);
+                
+                ((ReturnTypes)((ArrayList<?>)temp.value).get(j)).setType(((ReturnTypes)value.value).type);
+                //System.out.println(((ReturnTypes)value.value).type);
+                //System.out.println(((ReturnTypes)((ArrayList<?>)temp.value).get(j)).value);
+                
+                env.ids.put(id.toLowerCase(), symbol);
+                return true;
+            }
+            env = env.prev;
+        }
+        return null;
+    }
+    
+    public Simbolo getValueArray(String id){
+        Entorno env = this;
+        while(env!=null){
+            if(env.ids.containsKey(id.toLowerCase())){
+                Simbolo simbolo = env.ids.get(id.toLowerCase());
+                //System.out.println(((ReturnTypes)((ArrayList<?>)simbolo.value).get(indice)).value);
+                
+                return   simbolo ;
+            }
+            env = env.prev;
+        }
+        return null;
     }
     
     public Simbolo getValue(String id){

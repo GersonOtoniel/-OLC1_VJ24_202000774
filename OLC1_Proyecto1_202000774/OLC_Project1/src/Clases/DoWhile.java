@@ -23,6 +23,7 @@ public class DoWhile extends Instruccion{
     @Override
     public Object ejecutar(Entorno env) {
         ReturnTypes condicion = null;
+       
         Entorno envDoWhile = new Entorno(env, "Entorno DoWhile");
         do{
             ReturnTypes bloque = (ReturnTypes) this.block.ejecutar(envDoWhile);
@@ -37,6 +38,9 @@ public class DoWhile extends Instruccion{
                 return bloque;
             }
             condicion = (ReturnTypes) this.condition.ejecutar(envDoWhile);
+            if(condicion.value instanceof String){
+            condicion.value = Boolean.parseBoolean((String) condicion.value);
+        }
         }
         while((Boolean) condicion.value);
         return null;

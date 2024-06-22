@@ -23,5 +23,10 @@ public enum TypesIns {
     BLOQUEINS,
     BREAK,
     CONTINUE,
+    VECTOR,
+    VECTOR2D,
+    ASIGNVECTOR,
+    ASIGNVECTOR2,
+    DINAMICLIST,
     ELSE;
 }

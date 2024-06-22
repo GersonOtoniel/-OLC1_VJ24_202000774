@@ -30,12 +30,12 @@ parser code {:
     }
 :}
 
-terminal  COMA, PRINTLN, CONSOLE, END, CHAR, DOUBLE, VAR, SUMA, MENOS, ARROBAID, INT, BOOL;
+terminal  COMA, PRINTLN, CHAR, DOUBLE, VAR, SUMA, MENOS, INT, BOOL;
 terminal  MULTIPLICACION, IGUALACION, DIFERENTE, MENORIGUAL, MAYORIGUAL, DIVISION, POTENCIA, MODULO;
 terminal  IGUAL, REASIGN, CONST, OR, AND, XOR, NOT, DECIMAL, TKSTRING, UMENOS;
-terminal  ASIGN, PYC, DP, MENORQ, MAYORQ, PARENABRE, PARENCIERRA, CORCHABRE, CORCHCIERRA, UNDERSCORE;
-terminal  ID, TRUE, FALSE, TKCHAR;
-terminal  STRING, ENTERO, ARROW, DEFAULT;
+terminal  ASIGN, PYC, DP, MENORQ, MAYORQ, PARENABRE, PARENCIERRA, LLAVEABRE, LLAVECIERRA, UNDERSCORE;
+terminal  ID, TRUE, FALSE, TKCHAR, CORCHABRE, CORCHCIERRA, PUNTO, REMOVE, APPEND;
+terminal  STRING, ENTERO, ARROW, DEFAULT, LIST, NEW;
 terminal  DEC, INC, TKIF, FOR, ELSE, MATCH, WHILE, RETURN, DO, TKBREAK, TKCONTINUE;
 
 
@@ -43,13 +43,16 @@ non terminal LinkedList<Instruccion> INIT, instrucciones;
 non terminal Instruccion instruccion;
 
 non terminal TIPO;
-non terminal MUTACION, IDS, BLOQUEIF;
+non terminal MUTACION, BLOQUEIF;
 non terminal Instruccion PRINT, DECLARACION, ASIGNACION, INC_DECINS, IF, BLOCKINS;
 non terminal Instruccion INSWHILE, BREAK, INSFOR, IDFOR, CONTINUE, DOWHILEINS, MATCHINS;
-non terminal Instruccion DEFAULTINS, CASE, EXPRESIONFOR;
+non terminal Instruccion DEFAULTINS, CASE, EXPRESIONFOR, INSVECTOR, INSLISTA;
 non terminal ArrayList<Instruccion> CASES;
 non terminal ArrayList<Object> BLOCKCASES;
-non terminal Expresion EXPRESION, INCRE_DECRE;
+non terminal Expresion EXPRESION, INCRE_DECRE, ARITMETICAS, ACCESSARRAYS;
+non terminal Instruccion INSASIGNVECTOR;
+non terminal LinkedList<Object> LISTAVALORES1, EXPRESIONES, LISTAVALORES2, EXPRESIONESARRAY, EXPRESIONARRAY;
+non terminal Instruccion LISTAPPEND, LISTREMOVE, LISTASSIGN, ACCESOLISTA, INSASIGNVECT2D; 
 
 
 
@@ -86,6 +89,14 @@ instruccion ::= DECLARACION:as PYC {: RESULT = as; :}
                 |INSWHILE:a {: RESULT = a; :}
                 |DOWHILEINS:a PYC {: RESULT = a; :}
                 |PRINT:a PYC {: RESULT = a; :}
+                |INSVECTOR:a PYC {: RESULT = a; :}
+                |INSASIGNVECTOR:a PYC {: RESULT = a; :}
+                |INSLISTA:a PYC {: RESULT = a; :}
+                |ACCESOLISTA:a PYC {: RESULT = a; :}
+                |LISTASSIGN:a PYC {: RESULT = a; :}
+                |LISTAPPEND:a PYC {: RESULT = a; :}
+                |LISTREMOVE:a PYC {: RESULT = a; :}
+                |INSASIGNVECT2D:a PYC {: RESULT = a; :}
                 |error PYC
                 |error
 
@@ -102,6 +113,53 @@ DECLARACION ::= MUTACION:a  ID:b DP TIPO:c IGUAL EXPRESION:d {: RESULT = new Dec
 ASIGNACION ::= ID:a IGUAL EXPRESION:b {: RESULT = new Assign(aleft, aright, a.toString(), b); :}
 ;
 
+//Listas dinámicas empieza acá-------------------------------------------------------------------------------------
+INSLISTA ::= LIST MENORQ TIPO:a MAYORQ MENORQ ID:b MAYORQ IGUAL NEW LIST PARENABRE PARENCIERRA
+;
+
+ACCESOLISTA ::= ID PUNTO EXPRESION
+;
+
+//LISTASSIGN ::= ID CORCHABRE EXPRESION CORCHCIERRA IGUAL EXPRESION
+//;
+
+LISTAPPEND ::= ID PUNTO APPEND PARENABRE EXPRESION PARENCIERRA
+;
+
+LISTREMOVE ::= ID PUNTO REMOVE PARENABRE EXPRESION PARENCIERRA
+; 
+
+
+//vectores empieza acá----------------------------------------------------------------------------------------------
+INSVECTOR ::= MUTACION:a ID:b DP TIPO:c CORCHABRE CORCHCIERRA IGUAL CORCHABRE LISTAVALORES1:d CORCHCIERRA {: RESULT = new Vect(bleft, bright, b.toString(), c.toString(), d, a.toString()); :}
+            |MUTACION:a ID:b DP TIPO:c CORCHABRE CORCHCIERRA CORCHABRE CORCHCIERRA IGUAL CORCHABRE LISTAVALORES2:d CORCHCIERRA {: RESULT = new Vect2D(bleft, bright, b.toString(), c.toString(), d, a.toString()); :}
+;
+
+LISTAVALORES1 ::=EXPRESIONES:a {: RESULT = a; :}
+
+;
+
+LISTAVALORES2 ::=EXPRESIONESARRAY:a {: RESULT = a; :}
+;
+
+EXPRESIONESARRAY ::= EXPRESIONESARRAY:b COMA EXPRESIONARRAY:a {: RESULT = b; RESULT.add(a); :}
+                    |EXPRESIONARRAY:a {: RESULT = new LinkedList<Object>(); RESULT.add(a); :}
+;
+
+EXPRESIONES ::= EXPRESIONES:b COMA EXPRESION:a {: RESULT = b;RESULT.add(a); :}
+               |EXPRESION:a {: RESULT = new LinkedList<Object>();RESULT.add(a);  :}
+;
+
+EXPRESIONARRAY ::= CORCHABRE LISTAVALORES1:a CORCHCIERRA {: RESULT = a; :}
+; 
+
+INSASIGNVECTOR ::= ID:a CORCHABRE EXPRESION:b CORCHCIERRA IGUAL EXPRESION:c {: RESULT = new AsignVect(aleft, aright, a.toString(), b, c ); :}
+;
+
+INSASIGNVECT2D ::= ID:a CORCHABRE EXPRESION:b CORCHCIERRA CORCHABRE EXPRESION:c CORCHCIERRA IGUAL EXPRESION:d {: RESULT = new AsignVect2D(aleft, aright, a.toString(), b, c, d); :}
+;
+
+//--------------------------------------------------------------------------------------------------------------------
 
 PRINT ::= PRINTLN PARENABRE EXPRESION:a PARENCIERRA {: RESULT = new Print(aleft, aright, a); :}
 ;
@@ -111,13 +169,9 @@ IF::= TKIF:c PARENABRE EXPRESION:a PARENCIERRA BLOCKINS:b {: RESULT = new If(cle
      |TKIF:c PARENABRE EXPRESION:a PARENCIERRA BLOCKINS:b ELSE IF:d {: RESULT = new If(cleft, cright, a, b, d); :}
 ;
 
-
-MATCHINS ::= MATCH:a EXPRESION:b CORCHABRE BLOCKCASES:c CORCHCIERRA {: RESULT = new Match(aleft, aright, b, (ArrayList<Instruccion>) c.get(0),(Instruccion)c.get(1));  :}
+//intsruccion Match empieza acá --------------------------------------------------------------------------------------
+MATCHINS ::= MATCH:a EXPRESION:b LLAVEABRE BLOCKCASES:c LLAVECIERRA {: RESULT = new Match(aleft, aright, b, (ArrayList<Instruccion>) c.get(0),(Instruccion)c.get(1));  :}
 ;
-
-
-
-
 
 
 BLOCKCASES::= CASES:a DEFAULTINS:b {: ArrayList<Object> lista = new ArrayList<>();lista.add(a); lista.add(b); RESULT = lista; :}
@@ -129,15 +183,12 @@ CASES::= CASES:b CASE:a {:   RESULT = b; RESULT.add((Instruccion)a); :}
         |CASE:a {: RESULT = new ArrayList<>(); RESULT.add((Instruccion)a); :}
 ;
 
-
-
-
-CASE::= EXPRESION:a ARROW CORCHABRE instrucciones:b CORCHCIERRA {: RESULT = new Case(aleft, aright, a, new BloqueIns(bleft, bright, b)); :}
+CASE::= EXPRESION:a ARROW LLAVEABRE instrucciones:b LLAVECIERRA {: RESULT = new Case(aleft, aright, a, new BloqueIns(bleft, bright, b)); :}
 ;
 
-DEFAULTINS ::= DEFAULT:b ARROW CORCHABRE instrucciones:a CORCHCIERRA {: RESULT = new BloqueIns(bleft, bright, a); :}
+DEFAULTINS ::= DEFAULT:b ARROW LLAVEABRE instrucciones:a LLAVECIERRA {: RESULT = new BloqueIns(bleft, bright, a); :}
 ;
-
+//----------------------------------------------------------------------------------------------------------------------
 
 
 INSWHILE::=WHILE:a PARENABRE EXPRESION:b PARENCIERRA BLOCKINS:c {: RESULT = new While(aleft, aright, b, c); :}
@@ -156,7 +207,7 @@ EXPRESIONFOR ::= ASIGNACION:a {: RESULT = a; :}
 IDFOR::= ID:a IGUAL EXPRESION:b {: RESULT = new Assign(aleft, aright, a.toString(), b); :}
 ;
 
-BLOCKINS ::= CORCHABRE:b instrucciones:a CORCHCIERRA {: RESULT = new BloqueIns(bleft, bright,a); :}
+BLOCKINS ::= LLAVEABRE:b instrucciones:a LLAVECIERRA {: RESULT = new BloqueIns(bleft, bright,a); :}
 ;
 
 BREAK::=TKBREAK:a {: RESULT = new Break(aleft, aright); :}
@@ -177,12 +228,8 @@ TIPO ::= CHAR:a {: RESULT = a; :}
 ;
 
 EXPRESION ::=|INCRE_DECRE:a {: RESULT = a; :}
-            |EXPRESION:a MODULO:b EXPRESION:c {:RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
-            |EXPRESION:a SUMA:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
-            |EXPRESION:a MENOS:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
-            |EXPRESION:a MULTIPLICACION:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
-            |EXPRESION:a DIVISION:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
-            |EXPRESION:a POTENCIA:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
+            |ARITMETICAS:a {: RESULT = a; :}
+            |ACCESSARRAYS:a {: RESULT = a; :}
             |EXPRESION:a IGUALACION:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c);:}
             |EXPRESION:a DIFERENTE:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c);:}
             |EXPRESION:a MENORQ:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c);:}
@@ -203,6 +250,20 @@ EXPRESION ::=|INCRE_DECRE:a {: RESULT = a; :}
             |TRUE:a {: RESULT = new Primitive(aleft, aright, a, Types.BOOL); :}
             |FALSE:a {: RESULT = new Primitive(aleft, aright, a, Types.BOOL); :}
             |TKCHAR:a {: RESULT = new Primitive(aleft, aright, a, Types.CHAR); :}
+;
+
+
+ARITMETICAS::=EXPRESION:a MODULO:b EXPRESION:c {:RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
+            |EXPRESION:a SUMA:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
+            |EXPRESION:a MENOS:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
+            |EXPRESION:a MULTIPLICACION:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
+            |EXPRESION:a DIVISION:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
+            |EXPRESION:a POTENCIA:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
+;
+
+
+ACCESSARRAYS::=ID:a CORCHABRE EXPRESION:b CORCHCIERRA {: RESULT = new VectAcces(aleft, aright, a.toString(), b); :}
+              |ID:a CORCHABRE EXPRESION:b CORCHCIERRA CORCHABRE EXPRESION:c CORCHCIERRA {: RESULT = new Vect2DAcces(aleft, aright, a.toString(), b, c); :}
 ;
 
 

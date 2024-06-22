@@ -8,80 +8,81 @@ package javacup;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int ARROBAID = 11;
-  public static final int CONST = 24;
-  public static final int CHAR = 6;
-  public static final int IGUALACION = 15;
-  public static final int MENORQ = 35;
-  public static final int ENTERO = 47;
-  public static final int XOR = 27;
-  public static final int DIFERENTE = 16;
-  public static final int DOUBLE = 7;
-  public static final int PARENABRE = 37;
-  public static final int INT = 12;
+  public static final int CONST = 21;
+  public static final int CHAR = 4;
+  public static final int IGUALACION = 12;
+  public static final int REMOVE = 46;
+  public static final int MENORQ = 32;
+  public static final int ENTERO = 49;
+  public static final int XOR = 24;
+  public static final int DIFERENTE = 13;
+  public static final int DOUBLE = 5;
+  public static final int PARENABRE = 34;
+  public static final int INT = 9;
   public static final int PRINTLN = 3;
-  public static final int TKIF = 52;
-  public static final int FOR = 53;
-  public static final int MATCH = 55;
-  public static final int NOT = 28;
-  public static final int MENORIGUAL = 17;
-  public static final int AND = 26;
-  public static final int IGUAL = 22;
-  public static final int CORCHABRE = 39;
-  public static final int OR = 25;
-  public static final int BOOL = 13;
-  public static final int INC = 51;
-  public static final int SUMA = 9;
-  public static final int UMENOS = 31;
-  public static final int ID = 42;
-  public static final int MAYORIGUAL = 18;
+  public static final int TKIF = 56;
+  public static final int FOR = 57;
+  public static final int MATCH = 59;
+  public static final int NOT = 25;
+  public static final int MENORIGUAL = 14;
+  public static final int AND = 23;
+  public static final int APPEND = 47;
+  public static final int IGUAL = 19;
+  public static final int CORCHABRE = 43;
+  public static final int OR = 22;
+  public static final int BOOL = 10;
+  public static final int INC = 55;
+  public static final int SUMA = 7;
+  public static final int UMENOS = 28;
+  public static final int ID = 39;
+  public static final int MAYORIGUAL = 15;
   public static final int EOF = 0;
-  public static final int DECIMAL = 29;
-  public static final int RETURN = 57;
-  public static final int TKBREAK = 59;
-  public static final int TRUE = 43;
+  public static final int DECIMAL = 26;
+  public static final int RETURN = 61;
+  public static final int TKBREAK = 63;
+  public static final int TRUE = 40;
+  public static final int NEW = 53;
+  public static final int LLAVECIERRA = 37;
+  public static final int LLAVEABRE = 36;
   public static final int error = 1;
   public static final int COMA = 2;
-  public static final int MODULO = 21;
-  public static final int MENOS = 10;
-  public static final int TKCONTINUE = 60;
-  public static final int TKSTRING = 30;
-  public static final int REASIGN = 23;
-  public static final int POTENCIA = 20;
-  public static final int ARROW = 48;
-  public static final int ELSE = 54;
-  public static final int MAYORQ = 36;
-  public static final int WHILE = 56;
-  public static final int DEFAULT = 49;
-  public static final int ASIGN = 32;
-  public static final int END = 5;
-  public static final int UNDERSCORE = 41;
-  public static final int STRING = 46;
-  public static final int DEC = 50;
-  public static final int FALSE = 44;
-  public static final int TKCHAR = 45;
-  public static final int DIVISION = 19;
-  public static final int PARENCIERRA = 38;
-  public static final int VAR = 8;
-  public static final int DP = 34;
-  public static final int DO = 58;
-  public static final int CONSOLE = 4;
-  public static final int PYC = 33;
-  public static final int MULTIPLICACION = 14;
-  public static final int CORCHCIERRA = 40;
+  public static final int MODULO = 18;
+  public static final int MENOS = 8;
+  public static final int TKCONTINUE = 64;
+  public static final int TKSTRING = 27;
+  public static final int REASIGN = 20;
+  public static final int POTENCIA = 17;
+  public static final int ARROW = 50;
+  public static final int ELSE = 58;
+  public static final int PUNTO = 45;
+  public static final int MAYORQ = 33;
+  public static final int WHILE = 60;
+  public static final int LIST = 52;
+  public static final int DEFAULT = 51;
+  public static final int ASIGN = 29;
+  public static final int UNDERSCORE = 38;
+  public static final int STRING = 48;
+  public static final int DEC = 54;
+  public static final int FALSE = 41;
+  public static final int TKCHAR = 42;
+  public static final int DIVISION = 16;
+  public static final int PARENCIERRA = 35;
+  public static final int VAR = 6;
+  public static final int DP = 31;
+  public static final int DO = 62;
+  public static final int PYC = 30;
+  public static final int MULTIPLICACION = 11;
+  public static final int CORCHCIERRA = 44;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
   "COMA",
   "PRINTLN",
-  "CONSOLE",
-  "END",
   "CHAR",
   "DOUBLE",
   "VAR",
   "SUMA",
   "MENOS",
-  "ARROBAID",
   "INT",
   "BOOL",
   "MULTIPLICACION",
@@ -109,17 +110,24 @@ public class sym {
   "MAYORQ",
   "PARENABRE",
   "PARENCIERRA",
-  "CORCHABRE",
-  "CORCHCIERRA",
+  "LLAVEABRE",
+  "LLAVECIERRA",
   "UNDERSCORE",
   "ID",
   "TRUE",
   "FALSE",
   "TKCHAR",
+  "CORCHABRE",
+  "CORCHCIERRA",
+  "PUNTO",
+  "REMOVE",
+  "APPEND",
   "STRING",
   "ENTERO",
   "ARROW",
   "DEFAULT",
+  "LIST",
+  "NEW",
   "DEC",
   "INC",
   "TKIF",

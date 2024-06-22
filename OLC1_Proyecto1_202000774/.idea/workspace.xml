@@ -10,10 +10,84 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4de95a39-9eb2-47ff-9fd9-73e85e0eb58c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/OLC_Project1/src/GUI/TabladeSimbolos.html" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/src/GUI/TabladeSimbolos.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OLC_Project1/src/GUI/archivo_manual.html" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/src/GUI/archivo_manual.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/built-jar.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/built-jar.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Arithmetics.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Arithmetics.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Assign.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Assign.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/BloqueIns.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/BloqueIns.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Break.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Break.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Case.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Case.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Cast.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Cast.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Continue.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Continue.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Declaration.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Declaration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Default.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Default.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/DoWhile.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/DoWhile.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Entorno.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Entorno.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Expresion.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Expresion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/For.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/For.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Id_Acces.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Id_Acces.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/If.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/If.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/IncDec.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/IncDec.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/IncDecIns.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/IncDecIns.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Instruccion.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Instruccion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Logic.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Logic.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Match.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Match.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Primitive.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Primitive.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Print.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Print.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/QuitarComillas.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/QuitarComillas.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Relacional.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Relacional.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/ReturnTypes.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/ReturnTypes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Types.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/Types.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/While.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Clases/While.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/HTML.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/HTML.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/Interfaz$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/Interfaz$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/Interfaz$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/Interfaz$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/Interfaz$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/Interfaz$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/Interfaz$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/Interfaz$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/Interfaz$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/Interfaz$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/Interfaz$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/Interfaz$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/Interfaz$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/Interfaz$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/Interfaz.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/Interfaz.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/GUI/Test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/Error.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/Error.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/RetornarTipos.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/RetornarTipos.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/Simbolo.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/Simbolo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/SimboloTab.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/SimboloTab.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/TablaErrores.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/TablaErrores.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/TablaSimbolo.html" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/TablaSimbolo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/TableSymbol.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/TableSymbol.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/TypesError.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/TypesError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/TypesEx.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/TypesEx.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/TypesIns.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/Utilidades/TypesIns.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/javacup/GRAFICAS.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/javacup/GRAFICAS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/javacup/Lex.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/javacup/Lex.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/javacup/Lexer.jflex" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/javacup/Lexer.jflex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/javacup/Parser$CUP$Parser$actions.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/javacup/Parser$CUP$Parser$actions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/javacup/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/javacup/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/javacup/SIMBOLOS.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/javacup/SIMBOLOS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/javacup/Sintax.cup" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/javacup/Sintax.cup" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/javacup/sym.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/javacup/sym.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/olc_project1/ListaSimple.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/olc_project1/ListaSimple.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/olc_project1/Nodo.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/olc_project1/Nodo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/build/classes/olc_project1/OLC_Project1.class" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/build/classes/olc_project1/OLC_Project1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/dist.rar" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/dist.rar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/nbproject/private/private.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/nbproject/private/private.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/src/Clases/BloqueIns.java" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/src/Clases/BloqueIns.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/src/Clases/DoWhile.java" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/src/Clases/DoWhile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/src/Clases/Entorno.java" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/src/Clases/Entorno.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/src/Clases/QuitarComillas.java" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/src/Clases/QuitarComillas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/src/Clases/Types.java" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/src/Clases/Types.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/src/GUI/Interfaz.form" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/src/GUI/Interfaz.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/src/GUI/Interfaz.java" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/src/GUI/Interfaz.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/src/Utilidades/TablaSimbolo.html" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/src/Utilidades/TablaSimbolo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/src/Utilidades/TypesIns.java" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/src/Utilidades/TypesIns.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/src/javacup/Lex.java" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/src/javacup/Lex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/src/javacup/Lexer.jflex" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/src/javacup/Lexer.jflex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OLC_Project1/src/javacup/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/src/javacup/Parser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OLC_Project1/src/javacup/Sintax.cup" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/src/javacup/Sintax.cup" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/src/javacup/sym.java" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/src/javacup/sym.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OLC_Project1/src/olc_project1/OLC_Project1.java" beforeDir="false" afterPath="$PROJECT_DIR$/OLC_Project1/src/olc_project1/OLC_Project1.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +98,7 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -37,25 +111,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/Desktop/SAN CARLOS/COMPILADORES1/LAB COMPI1/PROYECTO1/OLC1_Proyecto1_202000774",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "terminal",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Desktop/SAN CARLOS/COMPILADORES1/VACAS/LABORATORIO/PROYECTO_FASE1/-OLC1_VJ24_202000774/OLC1_Proyecto1_202000774&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17890.1" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17890.1" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -68,6 +154,10 @@
       <workItem from="1709778270967" duration="74000" />
       <workItem from="1712702570406" duration="656000" />
       <workItem from="1714714225318" duration="2192000" />
+      <workItem from="1718768065576" duration="1090000" />
+      <workItem from="1718769339421" duration="160000" />
+      <workItem from="1718776462259" duration="2000" />
+      <workItem from="1718780131433" duration="1000" />
     </task>
     <servers />
   </component>

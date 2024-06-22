@@ -16,6 +16,7 @@ public enum TypesEx {
     RETURN,
     CAST,
     INC_DEC,
+    VECTORACCES,
     LOGICAL;
    
 }

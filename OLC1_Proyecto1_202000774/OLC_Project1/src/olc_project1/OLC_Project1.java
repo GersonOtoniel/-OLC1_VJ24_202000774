@@ -54,7 +54,7 @@ public class OLC_Project1 {
         
         try {
             
-            String text = "var num:int = 5;";
+            String text = "var vector1:int [][] = [[1,2,3], [4,5,6], [7,8,9]];\nprintln(vector1[1][2]); ";
             Lex scanner = new Lex(new BufferedReader(new StringReader(text)));
             Parser parser = new Parser(scanner);
             var resultado = parser.parse();
