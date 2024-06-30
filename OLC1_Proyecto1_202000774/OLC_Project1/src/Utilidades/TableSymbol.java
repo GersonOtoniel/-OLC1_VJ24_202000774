@@ -63,14 +63,14 @@ public class TableSymbol {
         
         try {
             String reset = "";
-            java.nio.file.Files.write(java.nio.file.Paths.get("src/Utilidades/TablaSimbolo.html"), reset.getBytes());
-            java.nio.file.Files.write(java.nio.file.Paths.get("src/Utilidades/TablaSimbolo.html"), Tabla.getBytes());
+            java.nio.file.Files.write(java.nio.file.Paths.get("./TablaSimbolo.html"), reset.getBytes());
+            java.nio.file.Files.write(java.nio.file.Paths.get("./TablaSimbolo.html"), Tabla.getBytes());
             System.out.println("Archivo HTML creado exitosamente.");
         } catch (java.io.IOException e) {
             e.printStackTrace();}
         
         // Ruta al archivo HTML que creaste
-        String rutaArchivoHTML = "src/Utilidades/TablaSimbolo.html";
+        String rutaArchivoHTML = "./TablaSimbolo.html";
 
         // Intenta abrir el archivo con la aplicación predeterminada
         try {
