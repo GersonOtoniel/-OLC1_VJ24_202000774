@@ -70,8 +70,14 @@ new {return new Symbol (sym.NEW, yyline, yycolumn, yytext());}
 List {return new Symbol (sym.LIST, yyline, yycolumn, yytext());}
 append {return new Symbol (sym.APPEND, yyline, yycolumn, yytext());}
 remove {return new Symbol (sym.REMOVE, yyline, yycolumn, yytext());}
-
-
+length {return new Symbol (sym.LEN, yyline, yycolumn, yytext());}
+round {return new Symbol (sym.ROUND, yyline, yycolumn, yytext());}
+ToString {return new Symbol (sym.TOSTRING, yyline, yycolumn, yytext());}
+Find {return new Symbol (sym.FIND, yyline, yycolumn, yytext());}
+return {return new Symbol (sym.TKRETURN, yyline, yycolumn, yytext());}
+void {return new Symbol (sym.TKVOID, yyline, yycolumn, yytext());}
+start_with {return new Symbol (sym.TKSTART, yyline, yycolumn, yytext());}
+struct {return new Symbol (sym.TKSTRUCT, yyline, yycolumn, yytext());}
 
 <YYINITIAL>{double}+ {return new Symbol (sym.DECIMAL, yyline, yycolumn,yytext());}
 <YYINITIAL>{digit}+ {return new Symbol (sym.ENTERO, yyline, yycolumn, yytext());}

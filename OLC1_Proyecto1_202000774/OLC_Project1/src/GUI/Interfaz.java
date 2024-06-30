@@ -4,8 +4,19 @@
  */
 package GUI;
 
+import Clases.Append;
+import Clases.AsignVect;
+import Clases.AsignVect2D;
+import Clases.Assign;
+import Clases.Declaration;
+import Clases.DinamicList;
 import Clases.Entorno;
+import Clases.Function;
 import Clases.Instruccion;
+import Clases.START;
+import Clases.Struct;
+import Clases.Vect;
+import Clases.Vect2D;
 import Utilidades.Salidas;
 import Utilidades.TableSymbol;
 import javacup.Parser;
@@ -446,18 +457,27 @@ public class Interfaz extends javax.swing.JFrame {
             var resultado = parser.parse();
             
             Entorno global = new Entorno(null, "Global");
-            
+            START empezar = null;
             
             if(resultado.value instanceof LinkedList){
                 LinkedList<?> lista = (LinkedList<?>) resultado.value;
-                for(var elemento: lista){
-                    if(elemento instanceof Instruccion){
-                        ((Instruccion) elemento).ejecutar(global);
+                for(var instruccion: lista){
+                    if(instruccion instanceof Function || instruccion instanceof AsignVect || instruccion instanceof AsignVect2D || instruccion instanceof Append || instruccion instanceof Struct){
+                        ((Instruccion) instruccion).ejecutar(global);
+                    }
+                    if(instruccion instanceof Declaration || instruccion instanceof Vect || instruccion instanceof Vect2D || instruccion instanceof DinamicList || instruccion instanceof Assign){
+                        ((Instruccion) instruccion).ejecutar(global);
+                    }
+                    if(instruccion instanceof START){
+                        //((Instruccion) instruccion).ejecutar(global);
+                        empezar = (START) instruccion;
                     }
                 }
             }
             //System.out.println(Salidas.getConsola());
-            
+            if(empezar!=null){
+                empezar.ejecutar(global);
+            }
             jTextPane1.setText(Salidas.getConsola());
             } catch (Exception e) {
                 System.out.println(e);

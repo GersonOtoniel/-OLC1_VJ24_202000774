@@ -37,8 +37,14 @@ public class Id_Acces extends Expresion {
             return new ReturnTypes("NULL", Types.NULL);
             //error semantico
         }
+        if(value.typearray != null){
+            this.type = Types.STRING;
+            return new ReturnTypes(value.value, this.type);
+        }
         
         this.type = value.type;
+        
+        //System.out.println(value.typearray);
         return new ReturnTypes(value.value, this.type);
         
         //return new ReturnTypes("NULL", Types.NULL);

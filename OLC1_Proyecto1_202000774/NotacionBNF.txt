@@ -4,17 +4,35 @@
                   | <instruccion>
 
 <instruccion> ::= <DECLARACION> ";"
+                | <START> ";"
+                | <RETURN> ";"
                 | <ASIGNACION> ";"
                 | <INC_DECINS> ";"
                 | <IF>
+                | <CALL> ";"
                 | <INSFOR>
                 | <BREAK> ";"
                 | <CONTINUE> ";"
                 | <MATCHINS>
                 | <INSWHILE>
-                | <DOWHILEINS> ";" 
+                | <DOWHILEINS> ";"
                 | <PRINT> ";"
-                | <error> 
+                | <INSVECTOR> ";"
+                | <INSASIGNVECTOR> ";"
+                | <INSLISTA> ";"
+                | <ACCESOLISTA> ";"
+                | <LISTASSIGN> ";"
+                | <LISTAPPEND> ";"
+                | <LISTREMOVE> ";"
+                | <INSASIGNVECT2D> ";"
+                | <FUNCTION>
+                | <STRUCTINS> ";"
+                | <INSTANCIASTRUCT> ";"
+                | <RASIGNSTRUCT> ";"
+                | error ";"
+                | error
+
+<START> ::= "TKSTART" <CALL>
 
 <INC_DECINS> ::= "ID" "INC"
                | "ID" "DEC"
@@ -24,11 +42,44 @@
 
 <ASIGNACION> ::= "ID" "=" <EXPRESION>
 
+<RETURN> ::= "TKRETURN"
+           | "TKRETURN" <EXPRESION>
+
+
+<INSLISTA> ::= "LIST" "<" <TIPO> ">" <ID> "=" "NEW" "LIST" "(" ")"
+
+<LISTAPPEND> ::= "ID" "." "APPEND" "(" <EXPRESION> ")"
+
+<LISTREMOVE> ::= "ID" "." "REMOVE" "(" <EXPRESION> ")"
+
+
+<INSVECTOR> ::= <MUTACION> "ID" ":" <TIPO> "[" "]" "=" "[" <LISTAVALORES1> "]"
+              | <MUTACION> "ID" ":" <TIPO> "[" "]" "[" "]" "=" "[" <LISTAVALORES2> "]"
+
+<LISTAVALORES1> ::= <EXPRESIONES>
+
+<LISTAVALORES2> ::= <EXPRESIONESARRAY>
+
+<EXPRESIONESARRAY> ::= <EXPRESIONESARRAY> "," <EXPRESIONARRAY>
+                     | <EXPRESIONARRAY>
+
+<EXPRESIONES> ::= <EXPRESIONES> "," <EXPRESION>
+                | <EXPRESION>
+
+<EXPRESIONARRAY> ::= "[" <LISTAVALORES1> "]"
+
+<INSASIGNVECTOR> ::= "ID" "[" <EXPRESION> "]" "=" <EXPRESION>
+
+<INSASIGNVECT2D> ::= "ID" "[" <EXPRESION> "]" "[" <EXPRESION> "]" "=" <EXPRESION>
+
+
 <PRINT> ::= "PRINTLN" "(" <EXPRESION> ")"
+
 
 <IF> ::= "TKIF" "(" <EXPRESION> ")" <BLOCKINS>
        | "TKIF" "(" <EXPRESION> ")" <BLOCKINS> "ELSE" <BLOCKINS>
        | "TKIF" "(" <EXPRESION> ")" <BLOCKINS> "ELSE" <IF>
+
 
 <MATCHINS> ::= "MATCH" <EXPRESION> "{" <BLOCKCASES> "}"
 
@@ -39,13 +90,15 @@
 <CASES> ::= <CASES> <CASE>
           | <CASE>
 
-<CASE> ::= <EXPRESION> "ARROW" "{" <instrucciones> "}"
+<CASE> ::= <EXPRESION> "=>" "{" <instrucciones> "}"
 
-<DEFAULTINS> ::= "DEFAULT" "ARROW" "{" <instrucciones> "}"
+<DEFAULTINS> ::= "DEFAULT" "=>" "{" <instrucciones> "}"
+
 
 <INSWHILE> ::= "WHILE" "(" <EXPRESION> ")" <BLOCKINS>
 
 <DOWHILEINS> ::= "DO" <BLOCKINS> "WHILE" "(" <EXPRESION> ")"
+
 
 <INSFOR> ::= "FOR" "(" <IDFOR> ";" <EXPRESION> ";" <EXPRESIONFOR> ")" <BLOCKINS>
 
@@ -56,12 +109,59 @@
 
 <BLOCKINS> ::= "{" <instrucciones> "}"
 
+
 <BREAK> ::= "TKBREAK"
 
 <CONTINUE> ::= "TKCONTINUE"
 
+
 <MUTACION> ::= "VAR"
              | "CONST"
+
+
+<FUNCTION> ::= <TIPO> "ID" "(" ")" <BLOCKINS>
+             | <TIPO> "ID" "(" <PARAMETROS> ")" <BLOCKINS>
+             | "TKVOID" "ID" "(" ")" <BLOCKINS>
+             | "TKVOID" "ID" "(" <PARAMETROS> ")" <BLOCKINS>
+
+<PARAMETROS> ::= <PARAMETROS> "," <PARAMETRO>
+               | <PARAMETRO>
+
+<PARAMETRO> ::= <TIPO> "ID"
+
+<CALL> ::= "ID" "(" <PARAMCALL> ")"
+         | "ID" "(" ")"
+
+<PARAMCALL> ::= <PARAMCALL> "," <EXPRESION>
+              | <EXPRESION>
+
+
+<STRUCTINS> ::= "TKSTRUCT" "{" <LISTASTRUCT> "}" "ID"
+
+<LISTASTRUCT> ::= <LISTASTRUCT> <DATOSTRUCT>
+                | <DATOSTRUCT>
+
+<DATOSTRUCT> ::= "ID" ":" <TIPOSTRUCT> ";"
+
+<TIPOSTRUCT> ::= "CHAR"
+               | "DOUBLE"
+               | "INT"
+               | "BOOL"
+               | "TKSTRING"
+               | "ID"
+
+<INSTANCIASTRUCT> ::= <MUTACION> "ID" ":" "ID" "=" <BLOQUESTRUCT>
+
+<BLOQUESTRUCT> ::= "{" <VALORESTRUCT> "}"
+
+<VALORESTRUCT> ::= <VALORESTRUCT> "," <VALOR>
+                 | <VALOR>
+
+<VALOR> ::= <ID> ":" <EXPRESION>
+          | <ID> ":" <BLOQUESTRUCT>
+
+<RASIGNSTRUCT> ::= "ID" "." "ID" "=" <EXPRESION>
+
 
 <TIPO> ::= "CHAR"
          | "DOUBLE"
@@ -69,26 +169,16 @@
          | "BOOL"
          | "TKSTRING"
 
+
 <EXPRESION> ::= <INCRE_DECRE>
-              | <EXPRESION> "%" <EXPRESION>
-              | <EXPRESION> "+" <EXPRESION>
-              | <EXPRESION> "-" <EXPRESION>
-              | <EXPRESION> "*" <EXPRESION>
-              | <EXPRESION> "/" <EXPRESION>
-              | <EXPRESION> "**" <EXPRESION>
-              | <EXPRESION> "==" <EXPRESION>
-              | <EXPRESION> "!=" <EXPRESION>
-              | <EXPRESION> "<" <EXPRESION>
-              | <EXPRESION> ">" <EXPRESION>
-              | <EXPRESION> ">=" <EXPRESION>
-              | <EXPRESION> "<=" <EXPRESION>
-              | <EXPRESION> "AND" <EXPRESION>
-              | <EXPRESION> "XOR" <EXPRESION>
-              | <EXPRESION> "OR" <EXPRESION>
-              | "NOT" <EXPRESION>
-              | "MENOS" <EXPRESION>
-              | "(" <EXPRESION> ")"
-              | "(" <TIPO> ")" <EXPRESION>
+              | <ARITMETICAS>
+              | <ACCESSARRAYS>
+              | <NATIVAS>
+              | <RELACIONAL>
+              | <LOGIC>
+              | <OTROS>
+              | <CALLEX>
+              | <STRUCTACCESS>
               | "STRING"
               | "ID"
               | "DECIMAL"
@@ -97,5 +187,46 @@
               | "FALSE"
               | "TKCHAR"
 
+<ARITMETICAS> ::= <EXPRESION> "%" <EXPRESION>
+                | <EXPRESION> "+" <EXPRESION>
+                | <EXPRESION> "-" <EXPRESION>
+                | <EXPRESION> "*" <EXPRESION>
+                | <EXPRESION> "/" <EXPRESION>
+                | <EXPRESION> "^" <EXPRESION>
+
+<RELACIONAL> ::= <EXPRESION> "==" <EXPRESION>
+               | <EXPRESION> "!=" <EXPRESION>
+               | <EXPRESION> "<" <EXPRESION>
+               | <EXPRESION> ">" <EXPRESION>
+               | <EXPRESION> ">=" <EXPRESION>
+               | <EXPRESION> "<=" <EXPRESION>
+
+<LOGIC> ::= <EXPRESION> "&&" <EXPRESION>
+          | <EXPRESION> "^^" <EXPRESION>
+          | <EXPRESION> "||" <EXPRESION>
+
+<OTROS> ::= "!" <EXPRESION>
+          | "-" <EXPRESION>
+          | "(" <EXPRESION> ")"
+          | "(" <TIPO> ")" <EXPRESION>
+
+<ACCESSARRAYS> ::= <ID> "[" <EXPRESION> "]"
+                 | <ID> "[" <EXPRESION> "]" "[" <EXPRESION> "]"
+                 | <ID> "." "REMOVE" "(" <EXPRESION> ")"
+
+<NATIVAS> ::= "ROUND" "(" <EXPRESION> ")"
+            | "LEN" "(" <EXPRESION> ")"
+            | "TOSTRING" "(" <EXPRESION> ")"
+            | "ID" "." "FIND" "(" <EXPRESION> ")"
+
 <INCRE_DECRE> ::= "ID" "INC"
                 | "ID" "DEC"
+
+<CALLEX> ::= "ID" "(" <PARAMCALLEX> ")"
+           | "ID" "(" ")"
+
+<PARAMCALLEX> ::= <PARAMCALL> "," <EXPRESION>
+                | <EXPRESION>
+
+<STRUCTACCESS> ::= "ID" "." "ID"
+

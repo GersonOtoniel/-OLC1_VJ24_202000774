@@ -18,8 +18,6 @@ public class Simbol {
     public static LinkedList<Object> lista = new LinkedList<>();
     public static LinkedList<Object> gpie = new LinkedList<>();
     public static LinkedList<Object> gbar = new LinkedList<>();
-    public static LinkedList<GRAFICAS> graficas = new LinkedList<>();
-    public static LinkedList<GRAFICAS> graficasbar = new LinkedList<>();
     public static LinkedList<Object> doubles = new LinkedList<>();
     public static LinkedList<SIMBOLOS> simbolos = new LinkedList<>();
     

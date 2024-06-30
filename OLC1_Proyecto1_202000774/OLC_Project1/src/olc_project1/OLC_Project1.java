@@ -31,14 +31,15 @@ public class OLC_Project1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+
         try {
             UIManager.setLookAndFeel(new FlatDarkLaf()); // Configura el tema oscuro
             Interfaz inter = new Interfaz();
-        inter.setVisible(true);
+            inter.setVisible(true);
         } catch (Exception ex) {
-            System.err.println("Error al inicializar el Look and Feel");}
-        
+            System.err.println("Error al inicializar el Look and Feel");
+        }
+
         try {
 
             String ruta1 = "D:/Desktop/SAN CARLOS/COMPILADORES1/LAB COMPI1/PROYECTO1/OLC1_Proyecto1_202000774/OLC_Project1/src/javacup/";
@@ -51,10 +52,10 @@ public class OLC_Project1 {
         } catch (Exception e) {
         }
 
-        
+        /*
         try {
             
-            String text = "var vector1:int [][] = [[1,2,3], [4,5,6], [7,8,9]];\nprintln(vector1[1][2]); ";
+            String text = "List<int> lista1 = new List();\nlista1.append(1);\nlista1.append(2);\nlista1.append(3);\nlista1.append(4);\nprintln(lista1);\n var cadena:String = \"hola como estas\";\nprintln(lista1.Find(5));";
             Lex scanner = new Lex(new BufferedReader(new StringReader(text)));
             Parser parser = new Parser(scanner);
             var resultado = parser.parse();
@@ -78,20 +79,8 @@ public class OLC_Project1 {
           System.out.println(e);
           System.out.println("Ocurrio un error");
           e.printStackTrace();
-        }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        /*
+        }*/
+ /*
         String entrada = "PROGRAM\n	! Estadísticas de Ingeniería en Guatemala\nCONSOLE::PRINT = \"-----------------ESTADÍSTICAS DE INGENIERÍA EN GUATEMALA-----------------\" END;\n\n<! Datos estadísticos !>\n VAR::DOUBLE::ingenierosElectronicos <- 150.0 END;\nVAR::DOUBLE::ingenierosMecanicos <- 120.0 END;\nVAR::DOUBLE::ingenierosInformaticos <- 200.0 END;\n\nCONSOLE::PRINT = \"Ingenieros Electrónicos:\", ingenierosElectronicos END;\nCONSOLE::PRINT = \"Ingenieros Mecánicos:\", ingenierosMecanicos END;\nCONSOLE::PRINT = \"Ingenieros Informáticos:\", ingenierosInformaticos END;\n\nVAR::DOUBLE::totalIngenieros <- SUM(SUM(ingenierosElectronicos, ingenierosMecanicos), ingenierosInformaticos) END;\nCONSOLE::PRINT = \"Total de Ingenieros:\", totalIngenieros END;\n\nCONSOLE::COLUMN = \"Número de Ingenieros por Especialidad en Guatemala\" -> [ingenierosElectronicos, ingenierosMecanicos, ingenierosInformaticos] END;\n<!\n--------------------------------------------\nNúmero de Ingenieros por Especialidad en Guatemala\n--------------------------------------------\nIngenieros Electrónicos: 150.0\nIngenieros Mecánicos: 120.0\nIngenieros Informáticos: 200.0\nTotal de Ingenieros: 470.0\n!>\n\nGRAPH_BAR(\nlabels::STRING[] = [\"Electrónicos\", \"Mecánicos\", \"Informáticos\"] END;\nvalues::DOUBLE[] = [ingenierosElectronicos, ingenierosMecanicos, ingenierosInformaticos] END;\ntitle::STRING = \"Número de Ingenieros por Especialidad en Guatemala\" END;\nEXEC GRAPH_BAR\n) END;\n\nEND PROGRAM";
         Reader sr = new StringReader(entrada);
         Lexer lx = new Lexer(sr);

@@ -21,13 +21,18 @@ public class BloqueIns extends Instruccion{
 
     @Override
     public Object ejecutar(Entorno env) {
-        //System.out.println(env.nombre);
+        //System.out.println(this.instrucciones);
         String entorno = env.nombre.toString();
         Entorno bloqueEntorno = new Entorno(env,entorno);
         for(var instruccion : this.instrucciones){
+           
             try{
-                var retorno = instruccion.ejecutar(bloqueEntorno);
+                //aqui si retorna algo es que se realizo un calculo u operacion
+                var retorno = instruccion.ejecutar(bloqueEntorno);//Tipo ReturnTupes
+                //System.out.println(((ReturnTypes)retorno).type);
+                //System.out.println(instruccion);
                 if(retorno != null && !(instruccion instanceof IncDecIns)){
+                    //System.out.println("entra en un if del bloqueins--" + ((ReturnTypes)retorno).type + "--" + instruccion);
                     return retorno;
                 }
             }catch(Exception e){}

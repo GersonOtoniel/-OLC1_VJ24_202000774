@@ -8,6 +8,7 @@ import java.util.*;
 import Clases.*;
 import java.util.Arrays;
 import java.util.List;
+import Utilidades.*;
 
 parser code {:
     public String resultado = "";
@@ -35,24 +36,27 @@ terminal  MULTIPLICACION, IGUALACION, DIFERENTE, MENORIGUAL, MAYORIGUAL, DIVISIO
 terminal  IGUAL, REASIGN, CONST, OR, AND, XOR, NOT, DECIMAL, TKSTRING, UMENOS;
 terminal  ASIGN, PYC, DP, MENORQ, MAYORQ, PARENABRE, PARENCIERRA, LLAVEABRE, LLAVECIERRA, UNDERSCORE;
 terminal  ID, TRUE, FALSE, TKCHAR, CORCHABRE, CORCHCIERRA, PUNTO, REMOVE, APPEND;
-terminal  STRING, ENTERO, ARROW, DEFAULT, LIST, NEW;
-terminal  DEC, INC, TKIF, FOR, ELSE, MATCH, WHILE, RETURN, DO, TKBREAK, TKCONTINUE;
+terminal  STRING, ENTERO, ARROW, DEFAULT, LIST, NEW, ROUND, LEN, TOSTRING, FIND;
+terminal  DEC, INC, TKIF, FOR, ELSE, MATCH, WHILE, TKRETURN, DO, TKBREAK, TKCONTINUE, TKVOID, TKSTART, TKSTRUCT;
 
 
 non terminal LinkedList<Instruccion> INIT, instrucciones;
 non terminal Instruccion instruccion;
 
-non terminal TIPO;
+non terminal TIPO, TIPOSTRUCT;
 non terminal MUTACION, BLOQUEIF;
-non terminal Instruccion PRINT, DECLARACION, ASIGNACION, INC_DECINS, IF, BLOCKINS;
+non terminal Instruccion PRINT, DECLARACION, ASIGNACION, INC_DECINS, IF, BLOCKINS, RETURN;
 non terminal Instruccion INSWHILE, BREAK, INSFOR, IDFOR, CONTINUE, DOWHILEINS, MATCHINS;
 non terminal Instruccion DEFAULTINS, CASE, EXPRESIONFOR, INSVECTOR, INSLISTA;
 non terminal ArrayList<Instruccion> CASES;
 non terminal ArrayList<Object> BLOCKCASES;
-non terminal Expresion EXPRESION, INCRE_DECRE, ARITMETICAS, ACCESSARRAYS;
+non terminal Expresion EXPRESION, INCRE_DECRE, ARITMETICAS, ACCESSARRAYS, NATIVAS, PARAMETRO, RELACIONAL;
+non terminal Expresion LOGIC, OTROS, EXRETURN, CALLEX, STRUCTACCESS;
 non terminal Instruccion INSASIGNVECTOR;
 non terminal LinkedList<Object> LISTAVALORES1, EXPRESIONES, LISTAVALORES2, EXPRESIONESARRAY, EXPRESIONARRAY;
-non terminal Instruccion LISTAPPEND, LISTREMOVE, LISTASSIGN, ACCESOLISTA, INSASIGNVECT2D; 
+non terminal LinkedList<Object> PARAMETROS, PARAMCALL, PARAMCALLEX, LISTASTRUCT, VALORESTRUCT, BLOQUESTRUCT;
+non terminal Instruccion LISTAPPEND, LISTREMOVE, LISTASSIGN, ACCESOLISTA, INSASIGNVECT2D, FUNCTION, CALL, START;
+non terminal Instruccion STRUCTINS, DATOSTRUCT, INSTANCIASTRUCT, VALOR, RASIGNSTRUCT;
 
 
 
@@ -79,9 +83,12 @@ instrucciones::= instrucciones:a instruccion:b {: RESULT = a; RESULT.add(b); :}
 ;
 
 instruccion ::= DECLARACION:as PYC {: RESULT = as; :}
+                |START:a PYC {: RESULT = a; :}
+                |RETURN:a PYC {: RESULT = a; :}
                 |ASIGNACION:a PYC {: RESULT = a; :}
                 |INC_DECINS:a PYC {: RESULT = a; :}
                 |IF:a {: RESULT = a; :}
+                |CALL:a PYC {: RESULT = a; :}
                 |INSFOR:a {: RESULT = a; :}
                 |BREAK:a PYC {: RESULT =a; :}
                 |CONTINUE:a PYC {: RESULT = a; :}
@@ -97,10 +104,18 @@ instruccion ::= DECLARACION:as PYC {: RESULT = as; :}
                 |LISTAPPEND:a PYC {: RESULT = a; :}
                 |LISTREMOVE:a PYC {: RESULT = a; :}
                 |INSASIGNVECT2D:a PYC {: RESULT = a; :}
+                |FUNCTION:a {: RESULT = a; :}
+                |STRUCTINS:a PYC {: RESULT = a;  :}
+                |INSTANCIASTRUCT:a PYC {: RESULT = a; :}
+                |RASIGNSTRUCT:a PYC {: RESULT = a; :}
                 |error PYC
                 |error
 
 ;
+
+START ::= TKSTART:a CALL:b {: RESULT = new START(aleft, aright, b); :}
+;
+
 
 INC_DECINS::= ID:a INC:b {: RESULT = new IncDecIns(aleft, aright, a.toString(), b.toString()); :}
              |ID:a DEC:b {: RESULT = new IncDecIns(aleft, aright, a.toString(), b.toString()); :}
@@ -113,20 +128,19 @@ DECLARACION ::= MUTACION:a  ID:b DP TIPO:c IGUAL EXPRESION:d {: RESULT = new Dec
 ASIGNACION ::= ID:a IGUAL EXPRESION:b {: RESULT = new Assign(aleft, aright, a.toString(), b); :}
 ;
 
+RETURN ::= TKRETURN:a   {: RESULT = new Return(aleft, aright, null); :}
+          |TKRETURN:a  EXPRESION:b {: RESULT = new Return(aleft, aright, b); :}
+;
+
 //Listas dinámicas empieza acá-------------------------------------------------------------------------------------
-INSLISTA ::= LIST MENORQ TIPO:a MAYORQ MENORQ ID:b MAYORQ IGUAL NEW LIST PARENABRE PARENCIERRA
+INSLISTA ::= LIST MENORQ TIPO:a MAYORQ  ID:b  IGUAL NEW LIST PARENABRE PARENCIERRA {: RESULT = new DinamicList(bleft, bright, b.toString(), a.toString()); :}
 ;
 
-ACCESOLISTA ::= ID PUNTO EXPRESION
+
+LISTAPPEND ::= ID:a PUNTO APPEND PARENABRE EXPRESION:b PARENCIERRA {: RESULT = new Append(aleft, aright, a.toString(), b); :}
 ;
 
-//LISTASSIGN ::= ID CORCHABRE EXPRESION CORCHCIERRA IGUAL EXPRESION
-//;
-
-LISTAPPEND ::= ID PUNTO APPEND PARENABRE EXPRESION PARENCIERRA
-;
-
-LISTREMOVE ::= ID PUNTO REMOVE PARENABRE EXPRESION PARENCIERRA
+LISTREMOVE ::= ID:a PUNTO REMOVE PARENABRE EXPRESION:b PARENCIERRA {: RESULT = new RemoveIns(aleft, aright, a.toString(), b); :}
 ; 
 
 
@@ -219,7 +233,73 @@ CONTINUE::=TKCONTINUE:a {: RESULT = new Continue(aleft, aright); :}
 MUTACION ::= VAR:varr {: RESULT = varr; :}
             |CONST:constante {: RESULT = constante; :}
 ;
-               
+//   Funcion-------------------------------------------------------------------------------------------------
+FUNCTION ::= TIPO:a ID:b PARENABRE  PARENCIERRA BLOCKINS:c {: RESULT = new Function(bleft, bright, b.toString(), a.toString(), c, new LinkedList<Object>()); :}
+            |TIPO:a ID:b PARENABRE PARAMETROS:c PARENCIERRA BLOCKINS:d {: RESULT = new Function(bleft, bright, b.toString(), a.toString(), d, c); :}
+            |TKVOID:a ID:b PARENABRE PARENCIERRA BLOCKINS:c {: RESULT = new Function(bleft, bright, b.toString(), a.toString(), c, new LinkedList<Object>()); :}
+            |TKVOID:a ID:b PARENABRE PARAMETROS:c PARENCIERRA BLOCKINS:d {: RESULT = new Function(bleft, bright, b.toString(), a.toString(), d, c); :}
+;
+
+
+PARAMETROS ::= PARAMETROS:a COMA PARAMETRO:b {: RESULT = a; RESULT.add(b); :}
+              |PARAMETRO:a {: RESULT = new LinkedList<Object>(); RESULT.add(a); :}
+;
+
+//En parametros falta validar que vengan parametros de tipo vector2d, vector1d y listas 
+
+PARAMETRO ::= TIPO:a ID:b {: RESULT = new Parameter(bleft, bright, b.toString(), a.toString(), TypeParameter.SIMPLE); :}
+;
+
+
+CALL::= ID:a PARENABRE PARAMCALL:b PARENCIERRA {: RESULT = new CallFuncIns(aleft, aright, a.toString(), b); :}
+       |ID:a PARENABRE PARENCIERRA {: RESULT = new CallFuncIns(aleft, aright, a.toString(), new LinkedList<Object>()); :}
+;
+
+PARAMCALL::= PARAMCALL:a COMA EXPRESION:b {: RESULT = a; RESULT.add(b); :}
+            |EXPRESION:a {: RESULT = new LinkedList<Object>(); RESULT.add(a); :}
+;
+
+//---------------------------------------------------------------------------------------------------------- 
+
+//-----------------STRUCTS----------------------------------------------------------------------------------
+
+STRUCTINS::=TKSTRUCT:a LLAVEABRE LISTASTRUCT:b LLAVECIERRA ID:c {: RESULT = new Struct(aleft, aright, c.toString(), b); :}
+;
+
+LISTASTRUCT::= LISTASTRUCT:a DATOSTRUCT:b {: RESULT = a; RESULT.add(b); :}
+             |DATOSTRUCT:a {: RESULT = new LinkedList<Object>(); RESULT.add(a); :}
+;
+
+DATOSTRUCT::= ID:a DP TIPOSTRUCT:c PYC {: RESULT = new ValStruct(aleft, aright, a.toString(), c.toString()); :}
+;
+
+TIPOSTRUCT::= CHAR:a {: RESULT = a; :}
+            |DOUBLE:a {: RESULT = a; :}
+            |INT:a {: RESULT = a; :}
+            |BOOL:a {: RESULT = a; :}
+            |TKSTRING:a {: RESULT = a; :}
+            |ID:a {: RESULT = a; :}
+;
+
+INSTANCIASTRUCT::= MUTACION:a ID:b DP ID:c IGUAL BLOQUESTRUCT:d {: RESULT = new StructInstance(bleft, bright, b.toString(), c.toString(), d, a.toString()); :}
+;
+
+BLOQUESTRUCT::=LLAVEABRE VALORESTRUCT:a LLAVECIERRA {: RESULT = a; :}
+;
+
+VALORESTRUCT::= VALORESTRUCT:a COMA VALOR:b {: RESULT = a; RESULT.add(b); :}
+              |VALOR:a {: RESULT = new LinkedList<Object>(); RESULT.add(a); :}
+;
+
+VALOR ::= ID:a DP EXPRESION:b {: RESULT = new ValorStruct(aleft, aright, a.toString(), b); :}
+         |ID DP BLOQUESTRUCT 
+;
+
+
+RASIGNSTRUCT::=ID:a PUNTO ID:b IGUAL EXPRESION:c {: RESULT = new AsignStruct(aleft, aright, a.toString(), b.toString(), c); :}
+;
+
+//---------------------------------------------------------------------------------------------------------
 TIPO ::= CHAR:a {: RESULT = a; :}
         |DOUBLE:b {: RESULT = b; :}
         |INT:c {: RESULT = c; :}
@@ -227,22 +307,16 @@ TIPO ::= CHAR:a {: RESULT = a; :}
         |TKSTRING:e {: RESULT = e; :}
 ;
 
-EXPRESION ::=|INCRE_DECRE:a {: RESULT = a; :}
+
+EXPRESION ::=INCRE_DECRE:a {: RESULT = a; :}
             |ARITMETICAS:a {: RESULT = a; :}
             |ACCESSARRAYS:a {: RESULT = a; :}
-            |EXPRESION:a IGUALACION:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c);:}
-            |EXPRESION:a DIFERENTE:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c);:}
-            |EXPRESION:a MENORQ:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c);:}
-            |EXPRESION:a MAYORQ:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c); :}
-            |EXPRESION:a MAYORIGUAL:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c); :} 
-            |EXPRESION:a MENORIGUAL:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c); :}
-            |EXPRESION:a AND:b EXPRESION:c {: RESULT = new Logic(aleft, aright, a, b.toString(), c); :}
-            |EXPRESION:a XOR:b EXPRESION:c {: RESULT = new Logic(aleft, aright, a, b.toString(), c); :}
-            |EXPRESION:a OR:b EXPRESION:c {: RESULT = new Logic(aleft, aright, a, b.toString(), c); :}
-            |NOT:a EXPRESION:b {: RESULT = new Logic(aleft, aright, b, a.toString(), null); :}
-            |MENOS:a EXPRESION:b {: RESULT = new Arithmetics(aleft, aright, b, a.toString(), null); :}%prec UMENOS
-            |PARENABRE EXPRESION:a PARENCIERRA {: RESULT = a; :}
-            |PARENABRE TIPO:a PARENCIERRA EXPRESION:b {: RESULT = new Cast(aleft, aright, a.toString(), b); :}%prec UMENOS
+            |NATIVAS:a {: RESULT = a; :}
+            |RELACIONAL:a {: RESULT = a; :}
+            |LOGIC:a {: RESULT = a; :}
+            |OTROS:a {: RESULT = a; :}
+            |CALLEX:a {: RESULT = a; :}
+            |STRUCTACCESS:a {: RESULT = a; :}
             |STRING:strin {: RESULT = new Primitive(strinleft, strinright, strin!=null?QuitarComillas.comillas(strin.toString()):QuitarComillas.comillas(null) , Types.STRING); :}
             |ID:id {: RESULT = new Id_Acces(idleft, idright, id.toString()); :}
             |DECIMAL:decimal {: RESULT = new Primitive(decimalleft, decimalright, decimal, Types.DECIMAL); :}
@@ -261,12 +335,48 @@ ARITMETICAS::=EXPRESION:a MODULO:b EXPRESION:c {:RESULT = new Arithmetics(aleft,
             |EXPRESION:a POTENCIA:b EXPRESION:c {: RESULT = new Arithmetics(aleft, aright, a, b.toString(), c); :}
 ;
 
+RELACIONAL::=EXPRESION:a IGUALACION:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c);:}
+            |EXPRESION:a DIFERENTE:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c);:}
+            |EXPRESION:a MENORQ:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c);:}
+            |EXPRESION:a MAYORQ:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c); :}
+            |EXPRESION:a MAYORIGUAL:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c); :} 
+            |EXPRESION:a MENORIGUAL:b EXPRESION:c {: RESULT = new Relacional(aleft, aright, a, b.toString(), c); :}
+;
+
+LOGIC::=EXPRESION:a AND:b EXPRESION:c {: RESULT = new Logic(aleft, aright, a, b.toString(), c); :}
+        |EXPRESION:a XOR:b EXPRESION:c {: RESULT = new Logic(aleft, aright, a, b.toString(), c); :}
+        |EXPRESION:a OR:b EXPRESION:c {: RESULT = new Logic(aleft, aright, a, b.toString(), c); :}
+;
+
+OTROS::=NOT:a EXPRESION:b {: RESULT = new Logic(aleft, aright, b, a.toString(), null); :}
+            |MENOS:a EXPRESION:b {: RESULT = new Arithmetics(aleft, aright, b, a.toString(), null); :}%prec UMENOS
+            |PARENABRE EXPRESION:a PARENCIERRA {: RESULT = a; :}
+            |PARENABRE TIPO:a PARENCIERRA EXPRESION:b {: RESULT = new Cast(aleft, aright, a.toString(), b); :}%prec UMENOS
+;
 
 ACCESSARRAYS::=ID:a CORCHABRE EXPRESION:b CORCHCIERRA {: RESULT = new VectAcces(aleft, aright, a.toString(), b); :}
               |ID:a CORCHABRE EXPRESION:b CORCHCIERRA CORCHABRE EXPRESION:c CORCHCIERRA {: RESULT = new Vect2DAcces(aleft, aright, a.toString(), b, c); :}
+              //|ID:a PUNTO APPEND PARENABRE EXPRESION:b PARENCIERRA {: RESULT = new Append(aleft, aright, a.toString(), b); :}
+              |ID:a PUNTO REMOVE PARENABRE EXPRESION:b PARENCIERRA {: RESULT = new RemoveEx(aleft, aright, a.toString(), b); :}
 ;
 
+NATIVAS::= ROUND:a PARENABRE EXPRESION:b PARENCIERRA {: RESULT = new Natives(aleft, aright, b, a.toString()); :}
+          |LEN:a PARENABRE EXPRESION:b PARENCIERRA {: RESULT = new Natives(aleft, aright, b, a.toString()); :}
+          |TOSTRING:a PARENABRE EXPRESION:b PARENCIERRA {: RESULT = new Natives(aleft, aright, b, a.toString()); :}
+          |ID:a PUNTO FIND:c PARENABRE EXPRESION:b PARENCIERRA {: RESULT = new Natives(aleft, aright, b, c.toString(), a.toString()); :}
+;
 
 INCRE_DECRE::= ID:a INC:b {: RESULT = new IncDec(aleft, aright, a.toString(), b.toString()); :}
               |ID:a DEC:b {: RESULT = new IncDec(aleft, aright, a.toString(), b.toString()); :}  
+;
+
+CALLEX::= ID:a PARENABRE PARAMCALLEX:b PARENCIERRA {: RESULT = new CallFuncEx(aleft, aright, a.toString(), b); :}
+       |ID:a PARENABRE PARENCIERRA {: RESULT = new CallFuncEx(aleft, aright, a.toString(), new LinkedList<Object>()); :}
+;
+
+PARAMCALLEX::= PARAMCALL:a COMA EXPRESION:b {: RESULT = a; RESULT.add(b); :}
+            |EXPRESION:a {: RESULT = new LinkedList<Object>(); RESULT.add(a); :}
+;
+
+STRUCTACCESS::=ID:a PUNTO ID:b {: RESULT = new StructAccess(aleft, aright, a.toString(), b.toString()); :}
 ;

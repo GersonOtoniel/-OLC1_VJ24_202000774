@@ -62,16 +62,15 @@ public class MatrizOp {
 
     
     /*public static void main(String[] args){
-        int num1 = 4;
-        int num2 = 2;
+        double num1 = 6.5;
+        double num2 = 6.5;
         
         int temp = 1;
         
-        while(temp < num2){
-            num1 *= num1;
-            temp++;
+        if(num1==num2){
+            System.out.println("son igualess");
         }
         
-        System.out.println(num1);
+        //System.out.println(num1);
     }*/
 }

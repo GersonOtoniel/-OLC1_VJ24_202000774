@@ -35,7 +35,8 @@ public class TableSymbol {
     
     public static void crearTabla(){
         int contador = 0;
-        String Tabla = "<!DOCTYPE html>\n<html>\n<head>\n<title>Tabla de Tokens</title>\n<style>table{}th,td{padding: 8px 130px;}</style></head>\n<body>\n<table border=\"1\" style =\"color: white;\" bgcolor = \"#34495E\">";
+        String Tabla = "";
+        Tabla += "<!DOCTYPE html>\n<html>\n<head>\n<title>Tabla de Tokens</title>\n<style>table{}th,td{padding: 8px 130px;}</style></head>\n<body>\n<table border=\"1\" style =\"color: white;\" bgcolor = \"#34495E\">";
         Tabla+="<tr><td>" + "#" + "</td>"
                 + "<td>" + "ID" + "</td>"
                 + "<td>" + "Tipo" + "</td>"
@@ -61,6 +62,8 @@ public class TableSymbol {
         
         
         try {
+            String reset = "";
+            java.nio.file.Files.write(java.nio.file.Paths.get("src/Utilidades/TablaSimbolo.html"), reset.getBytes());
             java.nio.file.Files.write(java.nio.file.Paths.get("src/Utilidades/TablaSimbolo.html"), Tabla.getBytes());
             System.out.println("Archivo HTML creado exitosamente.");
         } catch (java.io.IOException e) {

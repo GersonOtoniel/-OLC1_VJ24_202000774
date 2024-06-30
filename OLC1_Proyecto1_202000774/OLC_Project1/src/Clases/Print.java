@@ -5,6 +5,8 @@
 package Clases;
 
 import Utilidades.TypesIns;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  *
@@ -22,6 +24,18 @@ public class Print extends Instruccion {
     @Override
     public Object ejecutar(Entorno env) {
         ReturnTypes value = (this.toPrint != null) ? this.toPrint.ejecutar(env) : null;
+        if(value.value instanceof LinkedList){
+            String lista = env.imprimirArray((LinkedList<?>) value.value);
+            env.setPrint((lista != null) ? lista + "\n": "");
+        
+            return null;
+        }
+        if(value.value instanceof ArrayList){
+            String lista = env.imprimirArray2((ArrayList<?>) value.value);
+            env.setPrint((lista != null) ? lista + "\n": "");
+        
+            return null;
+        }
         env.setPrint((value != null) ? value.value + "\n": "");
         
         return null;

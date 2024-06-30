@@ -4,10 +4,12 @@
  */
 package Clases;
 
+import Utilidades.Salidas;
 import Utilidades.Simbolo;
 import Utilidades.TypesEx;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  *
@@ -32,15 +34,17 @@ public class VectAcces extends Expresion{
         }
         
         if(value.getClass().isArray()){
-            return new ReturnTypes(((ReturnTypes)((ArrayList<?>)value.value).get((int)indice.value)).value, ((ReturnTypes)((ArrayList<?>)value.value).get((int)indice.value)).type);
+            return new ReturnTypes(((ReturnTypes)((LinkedList<?>)value.value).get((int)indice.value)).value, ((ReturnTypes)((LinkedList<?>)value.value).get((int)indice.value)).type);
         }
         
         if(value!=null){
-            if(((int)indice.value) > ((ArrayList<?>)value.value).size() || ((int) indice.value) < 0){
-                System.out.println("Error Semantico: indice fuera de rango");
+            if(((int)indice.value) > ((LinkedList<?>)value.value).size()-1 || ((int) indice.value) < 0){
+                //System.out.println("Error Semantico: indice fuera de rango");
+                String errorVar = String.format("--> Error Semántico: El indice %s esta fuera de rango.\n", (int)indice.value);
+                Salidas.printConsola.add(errorVar);
                 return new ReturnTypes("NULL", Types.NULL);
             }
-            return new ReturnTypes(((ReturnTypes)((ArrayList<?>)value.value).get((int)indice.value)).value, ((ReturnTypes)((ArrayList<?>)value.value).get((int)indice.value)).type);
+            return new ReturnTypes(((ReturnTypes)((LinkedList<?>)value.value).get((int)indice.value)).value, ((ReturnTypes)((LinkedList<?>)value.value).get((int)indice.value)).type);
         }
         return new ReturnTypes("NULL", Types.NULL);
     }

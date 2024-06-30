@@ -4,6 +4,7 @@
  */
 package Clases;
 
+import Utilidades.RetornarTipos;
 import Utilidades.TypesIns;
 import java.util.LinkedList;
 
@@ -14,16 +15,17 @@ import java.util.LinkedList;
 public class DinamicList extends Instruccion{
 
     public String id;
-    public String type;
+    public Types type;
     public DinamicList(int linea, int columna, String id, String type) {
         super(linea, columna, TypesIns.DINAMICLIST);
         this.id = id;
-        this.type = type;
+        this.type = RetornarTipos.RetornarTipos(type);
     }
 
     @Override
     public Object ejecutar(Entorno env) {
-        env.saveDinamicList(this.id, new LinkedList<?>());
+        //env.saveDinamicList(this.id, new LinkedList<?>());
+        env.saveDinamicList(this.linea, this.columna,this.id, new LinkedList<Object>(), this.type, "var");
         return null;
     }
     

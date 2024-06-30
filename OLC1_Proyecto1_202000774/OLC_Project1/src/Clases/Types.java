@@ -16,7 +16,8 @@ public enum Types {
     STRING,
     ARRAY,
     VECTOR,
-    NULL;
+    NULL,
+    STRUCT;
     
 }
 

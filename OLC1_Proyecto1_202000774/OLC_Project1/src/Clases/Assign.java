@@ -28,7 +28,7 @@ public class Assign extends Instruccion {
         Boolean respuesta = env.check(this.id, val);
         
         if(!respuesta){
-            System.out.println("no hay");//AQUI VA ERROR
+            //System.out.println("no hay");//AQUI VA ERROR
             String errorTipo = "La variable no ha sido creada o pertenece a un entorno no disponible\n";
             
             Salidas.printConsola.add(errorTipo);

@@ -17,6 +17,11 @@ public enum TypesEx {
     CAST,
     INC_DEC,
     VECTORACCES,
+    REMOVEEX,
+    NATIVE,
+    PARAMETER,
+    CALL,
+    STRUCT_ACCESS,
     LOGICAL;
    
 }

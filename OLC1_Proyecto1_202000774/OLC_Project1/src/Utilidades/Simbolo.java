@@ -17,12 +17,21 @@ public class Simbolo {
     public Types type;
     public Entorno env;
     public String mutabilidad;
+    public TypesIns typearray;
     public Simbolo(String id, Object value, Types type, String mutabilidad){
         this.id = id.toLowerCase();
         this.value = value;
         this.type = type;
         this.mutabilidad = mutabilidad;
         //this.env = env;
+    }
+    
+    public Simbolo (String id, Object value, Types type, TypesIns typearray, String mutabilidad){
+        this.id = id.toLowerCase();
+        this.value = value;
+        this.type = type;
+        this.mutabilidad = mutabilidad;
+        this.typearray = typearray;
     }
     
     /*public static void main(String[] args) {

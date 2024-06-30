@@ -31,7 +31,7 @@ public class Vect extends Instruccion{
     public Object ejecutar(Entorno env) {
         //System.out.println(((Expresion)this.values.get(2)).ejecutar(env).value);
         if(values!=null){
-            ArrayList<ReturnTypes> save_values = new ArrayList<ReturnTypes>();
+            LinkedList<ReturnTypes> save_values = new LinkedList<ReturnTypes>();
             int cont = 0;
             for(var val: values){
                 
