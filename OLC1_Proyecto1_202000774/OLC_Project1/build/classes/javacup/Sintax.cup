@@ -54,7 +54,7 @@ non terminal Expresion EXPRESION, INCRE_DECRE, ARITMETICAS, ACCESSARRAYS, NATIVA
 non terminal Expresion LOGIC, OTROS, EXRETURN, CALLEX, STRUCTACCESS;
 non terminal Instruccion INSASIGNVECTOR;
 non terminal LinkedList<Object> LISTAVALORES1, EXPRESIONES, LISTAVALORES2, EXPRESIONESARRAY, EXPRESIONARRAY;
-non terminal LinkedList<Object> PARAMETROS, PARAMCALL, PARAMCALLEX, LISTASTRUCT, VALORESTRUCT, BLOQUESTRUCT;
+non terminal LinkedList<Object> PARAMETROS, PARAMCALL, PARAMCALLEX, LISTASTRUCT, VALORESTRUCT, BLOQUESTRUCT, STRUCTACCESS2;
 non terminal Instruccion LISTAPPEND, LISTREMOVE, LISTASSIGN, ACCESOLISTA, INSASIGNVECT2D, FUNCTION, CALL, START;
 non terminal Instruccion STRUCTINS, DATOSTRUCT, INSTANCIASTRUCT, VALOR, RASIGNSTRUCT;
 
@@ -292,13 +292,21 @@ VALORESTRUCT::= VALORESTRUCT:a COMA VALOR:b {: RESULT = a; RESULT.add(b); :}
 ;
 
 VALOR ::= ID:a DP EXPRESION:b {: RESULT = new ValorStruct(aleft, aright, a.toString(), b); :}
-         |ID DP BLOQUESTRUCT 
+         |ID:a DP BLOQUESTRUCT:b {: RESULT = new ValorStruct(aleft, aright, a.toString(), b); :} 
 ;
 
 
 RASIGNSTRUCT::=ID:a PUNTO ID:b IGUAL EXPRESION:c {: RESULT = new AsignStruct(aleft, aright, a.toString(), b.toString(), c); :}
 ;
 
+/*
+STRUCTACCESS::=STRUCTACCESS2:a {: RESULT = new StructAccess(aleft, aright, null, null, a); :}
+;
+
+STRUCTACCESS2::= STRUCTACCESS2:a PUNTO ID:b {: RESULT = a; RESULT.add(b); :}
+                |ID:a {: RESULT = new LinkedList<Object>(); RESULT.add(a); :}
+;
+*/
 //---------------------------------------------------------------------------------------------------------
 TIPO ::= CHAR:a {: RESULT = a; :}
         |DOUBLE:b {: RESULT = b; :}
@@ -378,5 +386,7 @@ PARAMCALLEX::= PARAMCALL:a COMA EXPRESION:b {: RESULT = a; RESULT.add(b); :}
             |EXPRESION:a {: RESULT = new LinkedList<Object>(); RESULT.add(a); :}
 ;
 
-STRUCTACCESS::=ID:a PUNTO ID:b {: RESULT = new StructAccess(aleft, aright, a.toString(), b.toString()); :}
+STRUCTACCESS::=ID:a PUNTO ID:b {: RESULT = new StructAccess(aleft, aright, a.toString(), b.toString(), null); :}
+               |ID:a PUNTO ID:b PUNTO ID:c {: RESULT = new StructAccess(aleft, aright, a.toString(), b.toString(), c.toString()); :}
 ;
+

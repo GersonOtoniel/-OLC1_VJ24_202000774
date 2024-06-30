@@ -33,6 +33,9 @@ public class TableSymbol {
         return false;
     }
     
+    public static void limpiar(){
+        symbolTable.clear();
+    }
     public static void crearTabla(){
         int contador = 0;
         String Tabla = "";

@@ -29,6 +29,11 @@ public class ValorStruct extends Instruccion {
                 ReturnTypes val = ((Expresion) this.value).ejecutar(env);
                 return new ReturnStructTypes(this.id, val);
             }
+            else{
+                //System.out.println("otra instancia");
+                //System.out.println(this.value);
+                return new ReturnStructTypes("STRUCT", this.value);
+            }
             
         }
         return new ReturnStructTypes("NULL", Types.NULL);

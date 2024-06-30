@@ -58,7 +58,7 @@ public class StructInstance extends Instruccion {
             }
             //System.out.println("entra aca tambien");
             //env.saveID(this.linea, this.columna, this.id1, Types.STRUCT, this.values, this.mutacion);
-            
+            //System.out.println(save_values);
             env.saveID(this.linea, this.columna, this.id1, Types.STRUCT, save_values, this.mutacion);
             //aqui entro a uno de los valores de la instancia en este caso valor en la posicion 3 de la instancia
             /*Simbolo symb = env.getValue(id1);

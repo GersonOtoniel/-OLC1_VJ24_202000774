@@ -166,7 +166,7 @@ public class Entorno {
             }
             else{
                 ReturnTypes value = (ReturnTypes) ((LinkedList<?>)symbol.value).remove(i);
-                return new ReturnTypes(i+1, value.type);
+                return new ReturnTypes(value.value, value.type);
             }
         }
         return null;

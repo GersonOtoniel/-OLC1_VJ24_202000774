@@ -455,7 +455,7 @@ public class Interfaz extends javax.swing.JFrame {
             Lex scanner = new Lex(new BufferedReader(new StringReader(texto.toString())));
             Parser parser = new Parser(scanner);
             var resultado = parser.parse();
-            
+            TableSymbol.limpiar();
             Entorno global = new Entorno(null, "Global");
             START empezar = null;
             
