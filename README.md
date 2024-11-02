@@ -1,4 +1,4 @@
-# Proyecto de Organizacionde Compiladores 1
+# Proyecto de Organizacion de Lenguajes y  Compiladores 1
 
 ## Requisitos:
  - Tener instalado un IDE como Eclipse o Apache Neatbens
